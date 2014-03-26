@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 import utopia_gameobjects.DimensionalDrawnObject;
 import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
 import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_resourcebanks.SpriteBank;
+import utopia_worlds.Area;
 
 /**
  * Tilemaps hold a certain number of tiles. Tilemaps can be created using tables 
@@ -26,8 +26,9 @@ public class TileMap extends DimensionalDrawnObject
 	private int width, height, tilewidth, tileheight;
 	private short[] bankindexes, rotations, xscales, yscales, nameindexes;
 	private boolean initialized;
-	private DrawableHandler tiledrawer, parentdrawer;
-	private ActorHandler tileanimator;
+	private Area area;
+	private ActorHandler tileAnimator;
+	private DrawableHandler tileDrawer;
 	
 	
 	// CONSTRUCTOR	------------------------------------------------------
@@ -38,10 +39,6 @@ public class TileMap extends DimensionalDrawnObject
 	 *
 	 * @param x The tilemap's top-left x-coordinate
 	 * @param y The tilemap's top-left y-coordinate
-	 * @param drawer The drawablehandler that will draw the tiles in the map
-	 * @param animator The actorhandler that will animate the tiles (optional)
-	 * @param collidablehandler The collidableHandler that will handle the map's 
-	 * collision checking (optional)
 	 * @param width How many tiles the map holds horzontally
 	 * @param height How many tiles the map holds vertically 
 	 * @param tilewidth How wide the tiles are (in pixels)
@@ -61,15 +58,14 @@ public class TileMap extends DimensionalDrawnObject
 	 * @param nameindexes A table telling which index is used for each tile to 
 	 * find their spritename in a spritebank (The size of the table must be the same as the number 
 	 * of tiles in the map (= <b>width</b> * <b>height</b>))
+	 * @param area The area where the object will reside
 	 */
-	public TileMap(int x, int y, DrawableHandler drawer, ActorHandler animator, 
-			CollidableHandler collidablehandler, 
+	public TileMap(int x, int y, 
 			int width, int height, int tilewidth, int tileheight, 
 			short[] bankindexes, short[] rotations, short[] xscales, 
-			short[] yscales, short[] nameindexes)
+			short[] yscales, short[] nameindexes, Area area)
 	{
-		super(x, y, DepthConstants.BOTTOM - 5, true, CollisionType.BOX, drawer, 
-				collidablehandler);
+		super(x, y, DepthConstants.BOTTOM - 5, true, CollisionType.BOX, area);
 		
 		// Initializes attributes
 		this.initialized = false;
@@ -82,14 +78,14 @@ public class TileMap extends DimensionalDrawnObject
 		this.xscales = xscales;
 		this.yscales = yscales;
 		this.nameindexes = nameindexes;
+		this.area = area;
+		this.tileDrawer = null;
 		
-		this.parentdrawer = drawer;
-		this.tiledrawer = null;
 		// Only uses animation if actorhandler was specified
-		if (animator != null)
-			this.tileanimator = new ActorHandler(false, animator);
+		if (area.getActorHandler() != null)
+			this.tileAnimator = new ActorHandler(false, area.getActorHandler());
 		else
-			this.tileanimator = null;
+			this.tileAnimator = null;
 	}
 	
 	
@@ -119,7 +115,7 @@ public class TileMap extends DimensionalDrawnObject
 	{	
 		// Draws the tiles if they are initialized
 		if (this.initialized)
-			this.tiledrawer.drawSelf(g2d);
+			this.tileDrawer.drawSelf(g2d);
 		// Doesn't draw the map itself so no drawSelfBasic is called
 	}
 	
@@ -133,9 +129,10 @@ public class TileMap extends DimensionalDrawnObject
 		this.xscales = null;
 		this.yscales = null;
 		this.nameindexes = null;
+		//this.tileDrawer.kill();
 		
-		if (this.tileanimator != null)
-			this.tileanimator.kill();
+		if (this.tileAnimator != null)
+			this.tileAnimator.kill();
 		
 		super.kill();
 	}
@@ -220,10 +217,10 @@ public class TileMap extends DimensionalDrawnObject
 	{
 		// Kills all the tiles and sets the map into uninitialized state
 		this.initialized = false;
-		if (this.tiledrawer != null)
+		if (this.tileDrawer != null)
 		{
-			this.tiledrawer.kill();
-			this.tiledrawer = null;
+			this.tileDrawer.kill();
+			this.tileDrawer = null;
 		}
 	}
 	
@@ -245,8 +242,8 @@ public class TileMap extends DimensionalDrawnObject
 			return;
 		
 		// Initializes the tiledrawer
-		this.tiledrawer = new DrawableHandler(false, false, getDepth(), 0, 
-				this.parentdrawer);
+		this.tileDrawer = new DrawableHandler(false, false, getDepth(), 0, 
+				this.area.getDrawer());
 		
 		// Creates all the tiles
 		for (int i = 0; i < this.width * this.height; i++)
@@ -261,10 +258,10 @@ public class TileMap extends DimensionalDrawnObject
 			int y = (int) getY() + (i / this.width) * this.tileheight + 
 					this.tileheight / 2;
 			
-			Tile newtile = new Tile(x, y, this.tiledrawer, this.tileanimator, 
+			Tile newtile = new Tile(x, y, 
 					banks.get(this.bankindexes[i]).getSprite(
 					texturenames.get(this.nameindexes[i])), this.tilewidth, 
-					this.tileheight);
+					this.tileheight, this.area);
 			
 			// Rotates and scales the tile
 			newtile.setAngle(this.rotations[i]);

@@ -1,8 +1,7 @@
 package utopia_camera;
 
 import utopia_gameobjects.BasicPhysicDrawnObject;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
+import utopia_worlds.Area;
 
 /**
  * This camera follows a given object and zooms out when the speed of the object 
@@ -25,10 +24,7 @@ public class ZoomingFollowerCamera extends FollowerCamera
 	 * Creates a new zoomingfollowercamera with the given information. The camera 
 	 * starts at the position of the followed object
 	 *
-	 * @param drawer The drawablehandler that will draw the camera and 
-	 * objects it shows
-	 * @param actorhandler The actorhandler that will inform the camera of the 
-	 * act-event
+	 * @param area The area where the object will reside
 	 * @param screenWidth The width of the screen
 	 * @param screenHeight The height of the screen
 	 * @param depthLayers How many layers of depth handling there should be. 
@@ -39,13 +35,11 @@ public class ZoomingFollowerCamera extends FollowerCamera
 	 * @param zoommodifier How fast the camera's zoom increases and decreases 
 	 * (0+, default 1.0)
 	 */
-	public ZoomingFollowerCamera(DrawableHandler drawer,
-			ActorHandler actorhandler, int screenWidth, int screenHeight, 
+	public ZoomingFollowerCamera(int screenWidth, int screenHeight, 
 			int depthLayers, BasicPhysicDrawnObject followed, 
-			double minimumzoomspeed, double zoommodifier)
+			double minimumzoomspeed, double zoommodifier, Area area)
 	{
-		super(drawer, actorhandler, screenWidth, screenHeight, depthLayers, 
-				followed);
+		super(screenWidth, screenHeight, depthLayers, followed, area);
 		// Initializes attributes
 		this.minimumspeed = minimumzoomspeed;
 		this.zoommodifier = zoommodifier;

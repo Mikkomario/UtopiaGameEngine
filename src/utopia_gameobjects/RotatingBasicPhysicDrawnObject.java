@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import utopia_handleds.PhysicalCollidable;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.HelpMath;
 import utopia_helpAndEnums.Movement;
+import utopia_worlds.Area;
 
 /**
  * This class represents physical objects that can be rotated upon collision or 
@@ -44,21 +41,12 @@ public abstract class RotatingBasicPhysicDrawnObject extends BouncingBasicPhysic
 	 * @param depth The drawing depth of the object
 	 * @param isSolid Can the object currently be collided with
 	 * @param collisiontype What kind of shape represents the object
-	 * @param drawer The drawer that will draw the object
-	 * @param collidablehandler The collidableHandler that will handle the object's 
-	 * collision checking
-	 * @param collisionhandler The collisionHandler that will inform the object 
-	 * about collisions.
-	 * @param actorhandler The actorHandler that will inform the object about 
-	 * step events
+	 * @param area The area where the object will reside
 	 */
 	public RotatingBasicPhysicDrawnObject(int x, int y, int depth,
-			boolean isSolid, CollisionType collisiontype,
-			DrawableHandler drawer, CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, ActorHandler actorhandler)
+			boolean isSolid, CollisionType collisiontype, Area area)
 	{
-		super(x, y, depth, isSolid, collisiontype, drawer, collidablehandler,
-				collisionhandler, actorhandler);
+		super(x, y, depth, isSolid, collisiontype, area);
 		
 		// Initializes attributes (Most of these need to be initialized after 
 		// the subclass is done)

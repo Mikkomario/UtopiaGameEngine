@@ -5,10 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import utopia_handleds.PhysicalCollidable;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.HelpMath;
+import utopia_worlds.Area;
 
 /**
  * This is a subclass of the drawnobject that can be used in collisionchecking 
@@ -37,15 +36,12 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Phys
 	 * @param isSolid Is the object solid. In other words, can the object be 
 	 * collided with
 	 * @param collisiontype What kind of shape the object is collisionwise
-	 * @param drawer The drawablehandler that draws the object (optional)
-	 * @param collidablehandler The collidablehandler that will handle the 
-	 * object's collision checking (optional)
+	 * @param area The area where the object will reside
 	 */
 	public DimensionalDrawnObject(int x, int y, int depth, boolean isSolid, 
-			CollisionType collisiontype, DrawableHandler drawer, 
-			CollidableHandler collidablehandler)
+			CollisionType collisiontype, Area area)
 	{
-		super(x, y, depth, drawer);
+		super(x, y, depth, area);
 		
 		// Initializes attributes
 		this.solid = isSolid;
@@ -55,8 +51,8 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Phys
 		this.radius = -1;
 		
 		// Adds the object to the handler, if possible
-		if (collidablehandler != null)
-			collidablehandler.addCollidable(this);
+		if (area.getCollisionHandler().getCollidableHandler() != null)
+			area.getCollisionHandler().getCollidableHandler().addCollidable(this);
 	}
 	
 	

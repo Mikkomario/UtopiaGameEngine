@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import utopia_gameobjects.DrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_graphic.Sprite;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.DepthConstants;
+import utopia_worlds.Area;
 
 /**
  * Background is a simple surface that can be drawn under other objects
@@ -31,18 +30,17 @@ public class Background extends DrawnObject
 	 *
 	 * @param x The backround's top left x-coordinate
 	 * @param y The backgound's top left y-coordinate
-	 * @param drawer The drawablehandler that draws the background
-	 * @param actorhandler The actorhandler that animates the background 
+	 * @param area The area where the object will reside 
 	 * (optional, for animated backgrounds)
 	 * @param sprite The sprite that will be used to draw the background
 	 */
-	public Background(int x, int y, DrawableHandler drawer, 
-			ActorHandler actorhandler, Sprite sprite)
+	public Background(int x, int y, Sprite sprite, Area area)
 	{
-		super(x, y, DepthConstants.BOTTOM, drawer);
+		super(x, y, DepthConstants.BOTTOM, area);
 
 		// Initializes attributes
-		this.texturedrawer = new SingleSpriteDrawer(sprite, actorhandler, this);
+		this.texturedrawer = new SingleSpriteDrawer(sprite, 
+				area.getActorHandler(), this);
 	}
 	
 	
@@ -109,14 +107,13 @@ public class Background extends DrawnObject
 	 * @param approximate Are the backgrounds scaled so that they all fit into the area. 
 	 * If false, the backgrounds may be placed partly outside the given area.
 	 * @param texture The sprite used to draw the background(s)
-	 * @param drawer The draweablehandler that will draw the backgrounds (optional)
-	 * @param animator The actorhandler that will animate the backgrounds (optional)
+	 * @param area The area where the background will reside
 	 * 
 	 * @return A list containing all backgrounds used to create the surface
 	 */
 	public static ArrayList<Background> getRepeatedBackground(
 			int minx, int miny, int width, int height, boolean approximate, 
-			Sprite texture, DrawableHandler drawer, ActorHandler animator)
+			Sprite texture, Area area)
 	{
 		// Calculates the number of backgrounds used horizontally and vertically
 		int backbasewidth = texture.getWidth();
@@ -147,7 +144,7 @@ public class Background extends DrawnObject
 						(int) (xscale * backbasewidth/2), 
 						miny + (int) (iy * backbaseheight * yscale) + 
 						(int) (yscale * backbaseheight/2), 
-						drawer, animator, texture);
+						texture, area);
 				newback.scale(xscale, yscale);
 				backs.add(newback);
 			}

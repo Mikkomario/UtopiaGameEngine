@@ -1,19 +1,16 @@
 package utopia_gameobjects;
 
 import utopia_handleds.Actor;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.Movement;
+import utopia_worlds.Area;
 
 /**
  * In addition to CollidingDrawnObject's abilities Physicobject handles 
  * basic physical methods like moving and rotating
  *
  * @author Mikko Hilpinen.
- *         Created 28.11.2012.
+ * @since 28.11.2012.
  */
 public abstract class BasicPhysicDrawnObject extends CollidingDrawnObject 
 		implements Actor
@@ -37,21 +34,12 @@ public abstract class BasicPhysicDrawnObject extends CollidingDrawnObject
 	 * @param depth How 'deep' the object is drawn
 	 * @param isSolid Can the object be collided with
 	 * @param collisiontype What is the shape of the object collisionwise
-	 * @param drawer The drawablehandler that draws the object (optional)
-	 * @param collidablehandler The collidablehandler that handles the object's 
-	 * collision checking (optional)
-	 * @param collisionhandler Collisionhandler that informs the object about 
-	 * collisions (optional)
-	 * @param actorhandler The actorhandler that calls the object's act 
-	 * event (optional)
+	 * @param area The area where the object will reside
 	 */
 	public BasicPhysicDrawnObject(int x, int y, int depth, boolean isSolid, 
-			CollisionType collisiontype, DrawableHandler drawer, 
-			CollidableHandler collidablehandler, CollisionHandler collisionhandler, 
-			ActorHandler actorhandler)
+			CollisionType collisiontype, Area area)
 	{
-		super(x, y, depth, isSolid, collisiontype, drawer, collidablehandler, 
-				collisionhandler);
+		super(x, y, depth, isSolid, collisiontype, area);
 		
 		// Initializes attributes
 		this.movement = new Movement(0, 0);
@@ -62,8 +50,8 @@ public abstract class BasicPhysicDrawnObject extends CollidingDrawnObject
 		this.maxrotation = -1;
 		
 		// Adds the object to the actorhandler if possible
-		if (actorhandler != null)
-			actorhandler.addActor(this);
+		if (area.getActorHandler() != null)
+			area.getActorHandler().addActor(this);
 	}
 	
 	

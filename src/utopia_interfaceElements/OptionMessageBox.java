@@ -8,12 +8,9 @@ import java.awt.geom.Point2D;
 
 import utopia_graphic.Sprite;
 import utopia_handleds.LogicalHandled;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.MouseListenerHandler;
 import utopia_listeners.OptionMessageBoxListener;
 import utopia_listeners.TransformationListener;
-import utopia_worlds.Room;
+import utopia_worlds.Area;
 
 /**
  * OptionMessageBoxes are interactive messageBoxes that show a number of 
@@ -29,8 +26,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 	
 	private boolean active, autodeath, deactivatesOthers;
 	private OptionMessageBoxListener user;
-	private MouseListenerHandler mousehandler;
-	private ActorHandler actorhandler;
+	private Area area;
 	
 	/**
 	 * This template setting is used for boxes that only need to present 
@@ -70,29 +66,21 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 	 * actorhandled be deactivated?
 	 * @param user The object that is interested in which of the options 
 	 * was pressed (optional)
-	 * @param drawer The drawableHandler that will draw the box (optional)
-	 * @param actorhandler The actorHandler that will animate the background 
-	 * sprite (optional)
-	 * @param mousehandler MouseListenerHandler that informs the option buttons 
-	 * about mouse events
-	 * @param room The room where the box resides at
+	 * @param area The area where the object will reside
 	 */
 	public OptionMessageBox(int x, int y, int depth, String message,
 			Font textfont, Color textcolor, Sprite backgroundsprite, 
 			String[] options, Sprite buttonsprite, boolean diesafteruse, 
 			boolean deactivateOtherComponents, 
-			OptionMessageBoxListener user, DrawableHandler drawer,
-			ActorHandler actorhandler, MouseListenerHandler mousehandler, 
-			Room room)
+			OptionMessageBoxListener user, Area area)
 	{
-		super(x, y, depth, message, textfont, textcolor, backgroundsprite, drawer,
-				actorhandler);
+		super(x, y, depth, message, textfont, textcolor, backgroundsprite, area);
 		
 		// Checks if the message should deactivate other objects
 		if (deactivateOtherComponents)
 		{
-			actorhandler.inactivate();
-			mousehandler.inactivate();
+			area.getActorHandler().inactivate();
+			area.getMouseHandler().inactivate();
 		}
 		
 		// Initializes attributes
@@ -100,8 +88,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		this.autodeath = diesafteruse;
 		this.user = user;
 		this.deactivatesOthers = true;
-		this.mousehandler = mousehandler;
-		this.actorhandler = actorhandler;
+		this.area = area;
 		
 		int buttony = backgroundsprite.getHeight() - MARGIN - 
 				buttonsprite.getHeight() + buttonsprite.getOriginY();
@@ -115,7 +102,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 			int buttonx = (int) (minbuttonx + ((i + 1.0) / (options.length + 1.0)) * (maxbuttonx - minbuttonx));
 			
 			new OptionButton(buttonx, buttony, buttonsprite, options[i], i, 
-					textfont, textcolor, drawer, mousehandler, room, this);
+					textfont, textcolor, this, this.area);
 		}
 	}
 	
@@ -143,8 +130,8 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		// Checks if the other objects should be reactivated
 		if (this.deactivatesOthers)
 		{
-			this.mousehandler.activate();
-			this.actorhandler.activate();
+			this.area.getMouseHandler().activate();
+			this.area.getActorHandler().activate();
 		}
 			
 		super.kill();
@@ -192,11 +179,9 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		// of the object
 		public OptionButton(int relativex, int relativey, Sprite buttonsprite, 
 				String text, int index, Font textfont, Color textcolor, 
-				DrawableHandler drawer, MouseListenerHandler mousehandler, 
-				Room room, OptionMessageBox containerbox)
+				OptionMessageBox containerbox, Area area)
 		{
-			super(0, 0, containerbox.getDepth(), buttonsprite, drawer, 
-					mousehandler, room);
+			super(0, 0, containerbox.getDepth(), buttonsprite, area);
 			
 			// Initializes attributes
 			this.box = containerbox;

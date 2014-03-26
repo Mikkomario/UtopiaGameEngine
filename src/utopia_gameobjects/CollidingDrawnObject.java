@@ -3,20 +3,18 @@ package utopia_gameobjects;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.HelpMath;
 import utopia_listeners.CollisionListener;
 import utopia_listeners.TransformationListener;
+import utopia_worlds.Area;
 
 /**
  * Collidingdrawnobject is a subclass of the drawnobject that can collide with 
  * other objects and may react to collisions
  *
  * @author Mikko Hilpinen.
- *         Created 30.6.2013.
+ * @since 30.6.2013.
  */
 public abstract class CollidingDrawnObject extends DimensionalDrawnObject 
 		implements CollisionListener, TransformationListener
@@ -39,17 +37,12 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	 * @param depth How 'deep' the object is drawn
 	 * @param isSolid Can the object be collided with
 	 * @param collisiontype What shape the object is collisionwise
-	 * @param drawer Which drawablehandler will draw the object (optional)
-	 * @param collidablehandler The collidablehandler that will handle the object's 
-	 * collision checking (optional)
-	 * @param collisionhandler The collisionhandler that will handle the object's 
-	 * collision informing (optional)
+	 * @param area The area where the object will reside
 	 */
 	public CollidingDrawnObject(int x, int y, int depth, boolean isSolid,
-			CollisionType collisiontype, DrawableHandler drawer, 
-			CollidableHandler collidablehandler, CollisionHandler collisionhandler)
+			CollisionType collisiontype, Area area)
 	{
-		super(x, y, depth, isSolid, collisiontype, drawer, collidablehandler);
+		super(x, y, depth, isSolid, collisiontype, area);
 		
 		// Initializes attributes
 		this.active = true;
@@ -58,8 +51,8 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 		this.lastabsolutecollisionpoints = null;
 
 		// Adds the object to the handler(s)
-		if (collisionhandler != null)
-			collisionhandler.addCollisionListener(this);
+		if (area.getCollisionHandler() != null)
+			area.getCollisionHandler().addCollisionListener(this);
 		getTransformationListenerHandler().addListener(this);
 	}
 	

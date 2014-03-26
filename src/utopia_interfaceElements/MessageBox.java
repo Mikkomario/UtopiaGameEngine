@@ -8,8 +8,7 @@ import utopia_gameobjects.DrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_graphic.Sprite;
 import utopia_graphic.TextDrawer;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
+import utopia_worlds.Area;
 
 // TODO: Consider adding a width / height system that allows rescaling 
 // of the background sprite without scaling the text size
@@ -19,7 +18,7 @@ import utopia_handlers.DrawableHandler;
  * Messageboxes can be drawn on screen and manipulated like any DrawnObject
  * 
  * @author Mikko Hilpinen
- * created 8.1.2014
+ * @since 8.1.2014
  */
 public class MessageBox extends DrawnObject
 {
@@ -48,25 +47,18 @@ public class MessageBox extends DrawnObject
 	 * @param textcolor What color is used when drawing the text
 	 * @param backgroundsprite The sprite used to draw the background of the 
 	 * messageBox
-	 * @param drawer The drawablehandler that will draw the messagebox (optional)
-	 * @param actorhandler The actorhandler that will animate the message 
-	 * background (optional)
+	 * @param area The area where the object will reside
 	 */
 	public MessageBox(int x, int y, int depth, String message, 
-			Font textfont, Color textcolor, Sprite backgroundsprite, 
-			DrawableHandler drawer, ActorHandler actorhandler)
+			Font textfont, Color textcolor, Sprite backgroundsprite, Area area)
 	{
-		super(x, y, depth, drawer);
+		super(x, y, depth, area);
 
 		// Initializes the attributes
 		this.spritedrawer = new SingleSpriteDrawer(backgroundsprite, 
-				actorhandler, this);
+				area.getActorHandler(), this);
 		this.textDrawer = new TextDrawer(message + "", textfont, textcolor, 
 				this.spritedrawer.getSprite().getWidth() - MARGIN, this);
-		
-		// Adds the object to the handler(s)
-		if (drawer != null)
-			drawer.addDrawable(this);
 	}
 	
 	

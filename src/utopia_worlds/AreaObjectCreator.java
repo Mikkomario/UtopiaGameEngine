@@ -43,16 +43,14 @@ public abstract class AreaObjectCreator extends GameObject implements RoomListen
 	public AreaObjectCreator(Area area, String backgroundName, 
 			String backgroundBankName, int areaWidth, int areaHeight)
 	{
+		super(area);
+		
 		// Initializes attributes
 		this.area = area;
 		this.areaBackgroundBankName = backgroundBankName;
 		this.areaBackgroundName = backgroundName;
 		this.areaWidth = areaWidth;
 		this.areaHeight = areaHeight;
-		
-		// Adds the object to the handler(s)
-		if (area != null)
-			area.addObject(this);
 	}
 	
 	
@@ -82,11 +80,10 @@ public abstract class AreaObjectCreator extends GameObject implements RoomListen
 		{
 			ArrayList<Background> backs = new ArrayList<Background>();
 			Tile back = new Tile(this.areaWidth / 2, this.areaHeight / 2, 
-					this.area.getDrawer(),
-					this.area.getActorHandler(), 
 					MultiMediaHolder.getSpriteBank(
 					this.areaBackgroundBankName).getSprite(
-					this.areaBackgroundName), this.areaWidth, this.areaHeight);
+					this.areaBackgroundName), this.areaWidth, this.areaHeight, 
+					this.area);
 			backs.add(back);
 			this.area.setBackgrounds(backs, false);
 		}

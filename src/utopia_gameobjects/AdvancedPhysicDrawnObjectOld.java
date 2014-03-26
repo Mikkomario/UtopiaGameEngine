@@ -3,13 +3,10 @@ package utopia_gameobjects;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.Material;
 import utopia_helpAndEnums.Movement;
+import utopia_worlds.Area;
 
 /**
  * AdvancedPhysicDrawnObject is a rotating physic object that also handles 
@@ -33,21 +30,12 @@ public abstract class AdvancedPhysicDrawnObjectOld extends RotatingBasicPhysicDr
 	 * @param depth The drawing depth of the object
 	 * @param isSolid Can the object currently be collided with
 	 * @param collisiontype What kind of shape represents the object
-	 * @param drawer The drawer that will draw the object
-	 * @param collidablehandler The collidableHandler that will handle the object's 
-	 * collision checking
-	 * @param collisionhandler The collisionHandler that will inform the object 
-	 * about collisions.
-	 * @param actorhandler The actorHandler that will inform the object about 
-	 * step events
+	 * @param area The area where the object will reside
 	 */
 	public AdvancedPhysicDrawnObjectOld(int x, int y, int depth, boolean isSolid,
-			CollisionType collisiontype, DrawableHandler drawer,
-			CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, ActorHandler actorhandler)
+			CollisionType collisiontype, Area area)
 	{
-		super(x, y, depth, isSolid, collisiontype, drawer, collidablehandler,
-				collisionhandler, actorhandler);
+		super(x, y, depth, isSolid, collisiontype, area);
 	}
 	
 

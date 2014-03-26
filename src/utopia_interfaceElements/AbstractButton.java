@@ -6,11 +6,10 @@ import java.awt.geom.Point2D;
 import utopia_gameobjects.DimensionalDrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_graphic.Sprite;
-import utopia_handlers.DrawableHandler;
-import utopia_handlers.MouseListenerHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_listeners.AdvancedMouseListener;
 import utopia_listeners.RoomListener;
+import utopia_worlds.Area;
 import utopia_worlds.Room;
 
 /**
@@ -42,15 +41,11 @@ public abstract class AbstractButton extends DimensionalDrawnObject implements
 	 * @param y The new y-coordinate of teh button (in pixels)
 	 * @param depth The drawing depth of the button
 	 * @param sprite The sprite that is used for drawing the button
-	 * @param drawer The drawablehandler that will draw the button (optional)
-	 * @param mousehandler The mouseListenerHandler that will inform the object 
-	 * about mouse events (optional)
-	 * @param room The room that will hold the button (optional)
+	 * @param area The area where the object will reside
 	 */
-	public AbstractButton(int x, int y, int depth, Sprite sprite, 
-			DrawableHandler drawer, MouseListenerHandler mousehandler, Room room)
+	public AbstractButton(int x, int y, int depth, Sprite sprite, Area area)
 	{
-		super(x, y, depth, false, CollisionType.BOX, drawer, null);
+		super(x, y, depth, false, CollisionType.BOX, area);
 		
 		// Initializes attributes
 		this.active = true;
@@ -59,10 +54,8 @@ public abstract class AbstractButton extends DimensionalDrawnObject implements
 		this.spritedrawer = new SingleSpriteDrawer(sprite, null, this);
 		
 		// Adds the button to the handlers
-		if (room != null)
-			room.addObject(this);
-		if (mousehandler != null)
-			mousehandler.addMouseListener(this);
+		if (area.getMouseHandler() != null)
+			area.getMouseHandler().addMouseListener(this);
 	}
 	
 	

@@ -3,23 +3,25 @@ package utopia_worlds;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import utopia_backgrounds.Background;
 import utopia_backgrounds.TileMap;
 import utopia_handleds.Collidable;
 import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
 import utopia_handlers.DrawableHandler;
+import utopia_handlers.KeyListenerHandler;
+import utopia_handlers.MouseListenerHandler;
 import utopia_helpAndEnums.HelpMath;
+import utopia_resourceHandling.GamePhase;
 import utopia_resourcebanks.SpriteBank;
 
 /**
  * Dimensional room is a room that has a position and size
  *
  * @author Mikko Hilpinen.
- *         Created 12.7.2013.
+ * @since 12.7.2013.
  * @warning Changing the position of the room doesn't work well if the room 
  * is active. Please end the room before moving it. Also remember to move 
  * the map, background and the objects in the room as well
+ * @deprecated This class hasn't been tested well and is rather dated
  */
 public class DimensionalRoom extends TiledRoom implements Collidable
 {
@@ -34,48 +36,42 @@ public class DimensionalRoom extends TiledRoom implements Collidable
 	 * Creates a new dimensionalroom with the given size to the given position. 
 	 * A new tilemap is also created into the room using the given information. 
 	 * The room has the given background(s). The room is inctive until started
-	 * 
+	 * @param gamePhase The gamePhase that is active while the room is active
+	 * @param mouseHandler The mouseListenerHandler that informs the objects 
+	 * about mouse events
+	 * @param keyHandler The keyListenerHandler that informs the objects about 
+	 * key events
 	 * @param x The room's x-coordinate (in pixels)
 	 * @param y The room's y-coordinate (in pixels)
 	 * @param drawer The drawableHandler that will draw the contents of the room
-	 * @param animator The actorhandler that will animate the background(s) and tiles 
-	 * in the room (optional)
-	 * @param collidablehandler The collidableHandler that will handle the room's 
-	 * collision checking (optional)
+	 * @param actorHandler the actorHandler that will inform the objects about 
+	 * step events
 	 * @param width The width of the room (in pixels)
 	 * @param height The height of the room (in pixels)
-	 * @param xtiles How many tiles the room has horizontally (>= 0)
-	 * @param ytiles How many tiles the room has vertically (>= 0)
-	 * @param bankindexes A table telling which index for a spritebank is 
+	 * @param tileMap The tileMap that contains the tiles used in this room
 	 * used in which tile
-	 * @param rotations A table telling how much each tile is rotated
-	 * @param xscales A table telling how the tiles are flipped around the x-axis
-	 * @param yscales A table telling how the tiles are flipped around the y-axis
-	 * @param nameindexes A table telling which index is used for each tile to 
 	 * find their spritename in a spritebank
-	 * @param backgrounds The background(s) used in the room
-	 * @param tiletexturebanks A list of spritebanks containing the textures used in tiles
-	 * @param tiletexturenames A list of names of the tiletextures
+	 * @param tileTextureBanks A list of spritebanks containing the textures used in tiles
+	 * @param tileTextureNames A list of names of the tiletextures
 	 * @see utopia_worlds.Room#start()
 	 * @see utopia_worlds.Room#end()
 	 */
-	public DimensionalRoom(int x, int y, DrawableHandler drawer, 
-			ActorHandler animator, CollidableHandler collidablehandler, 
-			int width, int height, int xtiles, int ytiles, 
-			short[] bankindexes, short[] rotations, short[] xscales, 
-			short[] yscales, short[] nameindexes, 
-			ArrayList<Background> backgrounds, 
-			ArrayList<SpriteBank> tiletexturebanks,
-			ArrayList<String> tiletexturenames)
+	public DimensionalRoom(GamePhase gamePhase, MouseListenerHandler mouseHandler, 
+			KeyListenerHandler keyHandler, int x, int y, DrawableHandler drawer, 
+			ActorHandler actorHandler, int width, int height, TileMap tileMap, 
+			ArrayList<SpriteBank> tileTextureBanks, ArrayList<String> tileTextureNames)
 	{
-		super(backgrounds, new TileMap(x, y, drawer, animator, 
-				collidablehandler, xtiles, ytiles, width / xtiles, 
+		super(gamePhase, mouseHandler, actorHandler, drawer, keyHandler, 
+				tileMap/*new TileMap(x, y, xtiles, ytiles, width / xtiles, 
 				height / ytiles, bankindexes, rotations, xscales, yscales, 
-				nameindexes), tiletexturebanks, tiletexturenames);
+				nameindexes, this)*/, tileTextureBanks, tileTextureNames);
 		
 		// Initializes attributes
 		this.width = width;
 		this.height = height;
+		
+		// Adds the object to the handler(s)
+		getCollisionHandler().getCollidableHandler().addCollidable(this);
 	}
 	
 	

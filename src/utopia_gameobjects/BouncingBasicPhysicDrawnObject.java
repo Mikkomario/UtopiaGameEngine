@@ -3,13 +3,10 @@ package utopia_gameobjects;
 import java.awt.geom.Point2D;
 
 import utopia_handleds.PhysicalCollidable;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.CollidableHandler;
-import utopia_handlers.CollisionHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.HelpMath;
 import utopia_helpAndEnums.Movement;
+import utopia_worlds.Area;
 
 /**
  * This is a direct extension of the basicphysicobject class that can bounce 
@@ -17,7 +14,7 @@ import utopia_helpAndEnums.Movement;
  * collision nor takes rotation speed into account.
  *
  * @author Mikko Hilpinen.
- *         Created 24.8.2013.
+ * @since 24.8.2013.
  */
 public abstract class BouncingBasicPhysicDrawnObject extends BasicPhysicDrawnObject
 {
@@ -33,19 +30,12 @@ public abstract class BouncingBasicPhysicDrawnObject extends BasicPhysicDrawnObj
 	 * @param depth How 'deep' the object is drawn
 	 * @param isSolid Can the object be collided with
 	 * @param collisiontype What is the shape of the object collisionwise
-	 * @param drawer The drawablehandler that draws the object (optional)
-	 * @param collidablehandler The collidablehandler that handles the object's 
-	 * collision checking (optional)
-	 * @param collisionhandler Collisionhandler that informs the object about collisions (optional)
-	 * @param actorhandler The actorhandler that calls the object's act event (optional)
+	 * @param area The area where the object will reside
 	 */
 	public BouncingBasicPhysicDrawnObject(int x, int y, int depth,
-			boolean isSolid, CollisionType collisiontype,
-			DrawableHandler drawer, CollidableHandler collidablehandler,
-			CollisionHandler collisionhandler, ActorHandler actorhandler)
+			boolean isSolid, CollisionType collisiontype, Area area)
 	{
-		super(x, y, depth, isSolid, collisiontype, drawer, collidablehandler,
-				collisionhandler, actorhandler);
+		super(x, y, depth, isSolid, collisiontype, area);
 	}
 	
 	

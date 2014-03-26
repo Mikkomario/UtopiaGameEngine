@@ -11,18 +11,17 @@ import utopia_gameobjects.DimensionalDrawnObject;
 import utopia_gameobjects.DrawnObject;
 import utopia_handleds.Collidable;
 import utopia_handleds.Drawable;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
 import utopia_helpAndEnums.CollisionType;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_helpAndEnums.HelpMath;
+import utopia_worlds.Area;
 
 /**
  * This object acts as the camera of the game, drawing multiple elements from the 
  * world into a smaller screen
  *
  * @author Mikko Hilpinen.
- *         Created 16.6.2013.
+ * @since 16.6.2013.
  */
 public class BasicCamera extends BasicPhysicDrawnObject
 {
@@ -40,20 +39,16 @@ public class BasicCamera extends BasicPhysicDrawnObject
 	 *
 	 * @param x The camera's new x-coordinate
 	 * @param y The camera's new y-coordinate
-	 * @param drawer The drawablehandler that will draw the camera and objects 
-	 * it shows
-	 * @param actorhandler The actorhandler that informs the camera about 
-	 * the act-event
 	 * @param screenWidth The width of the screen
 	 * @param screenHeight The height of the screen
 	 * @param depthLayers How many layers of depth handling there should be. 
 	 * The less the content's depth changes, the more there should be. [1, 6]
+	 * @param area The area where the object will reside
 	 */
 	public BasicCamera(int x, int y, int screenWidth, int screenHeight, 
-			int depthLayers, DrawableHandler drawer, ActorHandler actorhandler)
+			int depthLayers, Area area)
 	{
-		super(x, y, DepthConstants.BACK, false, CollisionType.BOX, drawer, 
-				null, null, actorhandler);
+		super(x, y, DepthConstants.BACK, false, CollisionType.BOX, area);
 		
 		// Initializes attributes
 		this.drawer =  new CameraDrawer(false, depthLayers, this);

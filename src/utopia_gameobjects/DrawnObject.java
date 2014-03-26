@@ -9,7 +9,6 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 
 import utopia_handleds.Drawable;
-import utopia_handlers.DrawableHandler;
 import utopia_handlers.TransformationListenerHandler;
 import utopia_helpAndEnums.DepthConstants;
 import utopia_helpAndEnums.HelpMath;
@@ -17,6 +16,7 @@ import utopia_helpAndEnums.Movement;
 import utopia_listeners.TransformationListener.TransformationAxis;
 import utopia_listeners.TransformationListener.TransformationEvent;
 import utopia_listeners.TransformationListener.TransformationType;
+import utopia_worlds.Area;
 
 
 
@@ -25,7 +25,7 @@ import utopia_listeners.TransformationListener.TransformationType;
  * object. The object has a certain position, angle and scale.
  *
  * @author Mikko Hilpinen.
- *         Created 26.11.2012.
+ * @since 26.11.2012.
  */
 public abstract class DrawnObject extends GameObject implements Drawable
 {	
@@ -49,11 +49,13 @@ public abstract class DrawnObject extends GameObject implements Drawable
 	 * @param x The new x-coordinate of the object (Game world Pxl)
 	 * @param y The new y-coordinate of the object (Game world Pxl)
 	 * @param depth How 'deep' the object is drawn
-	 * @param drawer The handler that draws the object (optional)
+	 * @param area The area where the object will reside
 	 * @see DepthConstants
 	 */
-	public DrawnObject(int x, int y, int depth, DrawableHandler drawer)
+	public DrawnObject(int x, int y, int depth, Area area)
 	{
+		super(area);
+		
 		// Initializes the attributes
 		this.x = x;
 		this.y = y;
@@ -73,9 +75,8 @@ public abstract class DrawnObject extends GameObject implements Drawable
 		this.listenerhandler = new TransformationListenerHandler(false, null);
 		
 		// Adds the object to the drawer (if possible)
-		// TODO: May cause deadlock
-		if (drawer != null)
-			drawer.addDrawable(this);
+		if (area.getDrawer() != null)
+			area.getDrawer().addDrawable(this);
 		
 		//this.updateTransformation();
 	}

@@ -22,7 +22,7 @@ import utopia_listeners.RoomListener;
  * to save memory when it is not needed.
  *
  * @author Mikko Hilpinen.
- *         Created 11.7.2013.
+ * @since 11.7.2013.
  */
 public class Room extends Handler
 {	

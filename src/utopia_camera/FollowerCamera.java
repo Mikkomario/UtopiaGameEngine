@@ -1,8 +1,7 @@
 package utopia_camera;
 
 import utopia_gameobjects.BasicPhysicDrawnObject;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
+import utopia_worlds.Area;
 
 /**
  * A camera, which follows the given object around. The camera's position is 
@@ -24,22 +23,18 @@ public class FollowerCamera extends BasicCamera
 	 * Creates a new follower camera added to the given handlers and starting 
 	 * from the <b>followed</b> object's coordinates
 	 * 
-	 * @param drawer The drawablehandler that will draw the camera and 
-	 * objects it shows
-	 * @param actorhandler The actorhandler that will inform the camera of the 
-	 * act-event
 	 * @param screenWidth The width of the screen
 	 * @param screenHeight The height of the screen
 	 * @param depthLayers How many layers of depth handling there should be. 
 	 * The less the content's depth changes, the more there should be. [1, 6]
 	 * @param followed The followed PhysicDrawnObject
+	 * @param area The area where the object will reside
 	 */
-	public FollowerCamera(DrawableHandler drawer, ActorHandler actorhandler,
-			int screenWidth, int screenHeight, int depthLayers, 
-			BasicPhysicDrawnObject followed)
+	public FollowerCamera(int screenWidth, int screenHeight, int depthLayers, 
+			BasicPhysicDrawnObject followed, Area area)
 	{
 		super((int) (followed.getX()), (int) (followed.getY()), 
-				screenWidth, screenHeight, depthLayers, drawer, actorhandler);
+				screenWidth, screenHeight, depthLayers, area);
 
 		// Initializes attributes
 		this.followed = followed;

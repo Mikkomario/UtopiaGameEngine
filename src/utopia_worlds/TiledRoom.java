@@ -3,8 +3,12 @@ package utopia_worlds;
 
 import java.util.ArrayList;
 
-import utopia_backgrounds.Background;
 import utopia_backgrounds.TileMap;
+import utopia_handlers.ActorHandler;
+import utopia_handlers.DrawableHandler;
+import utopia_handlers.KeyListenerHandler;
+import utopia_handlers.MouseListenerHandler;
+import utopia_resourceHandling.GamePhase;
 import utopia_resourcebanks.SpriteBank;
 
 /**
@@ -14,7 +18,7 @@ import utopia_resourcebanks.SpriteBank;
  * @author Mikko Hilpinen.
  *         Created 11.7.2013.
  */
-public class TiledRoom extends Room
+public class TiledRoom extends Area
 {	
 	// ATTRIBUTES	-----------------------------------------------------
 	
@@ -28,10 +32,15 @@ public class TiledRoom extends Room
 	/**
 	 * Creates a new room, filled with backgrounds, tiles and objects. 
 	 * The room will remain inactive until started.
-	 *
-	 * @param backgrounds The background(s) used in the room. Use empty list or 
-	 * null if no backgrounds will be used. The backgrounds should cover the room's 
-	 * area that is not covered by tiles.
+	 * 
+	 * @param gamePhase The gamePhase that is active while this room is active
+	 * @param mouseHandler The mouseHandler that will inform the room's objects 
+	 * about mouse events
+	 * @param actorHandler The actorHandler that will inform the room's objects 
+	 * about step events 
+	 * @param drawer The drawer the will draw the objects in the room
+	 * @param keyHandler The keyHandler that will inform the objects about 
+	 * key events
 	 * @param tilemap The tilemap used in the room (null if no tiles are used)
 	 * @param tiletexturebanks A list of spritebanks that contained the textures 
 	 * used in the tilemap
@@ -40,11 +49,13 @@ public class TiledRoom extends Room
 	 * @see utopia_worlds.Room#end()
 	 * @see utopia_worlds.Room#start()
 	 */
-	public TiledRoom(ArrayList<Background> backgrounds, 
+	public TiledRoom(GamePhase gamePhase, MouseListenerHandler mouseHandler, 
+			ActorHandler actorHandler, DrawableHandler drawer, 
+			KeyListenerHandler keyHandler,
 			TileMap tilemap, ArrayList<SpriteBank> tiletexturebanks, 
 			ArrayList<String> tiletexturenames)
 	{
-		super(backgrounds);
+		super(gamePhase, mouseHandler, actorHandler, drawer, keyHandler);
 		
 		// Initializes attributes
 		this.tilemap = tilemap;

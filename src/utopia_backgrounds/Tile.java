@@ -1,8 +1,7 @@
 package utopia_backgrounds;
 
 import utopia_graphic.Sprite;
-import utopia_handlers.ActorHandler;
-import utopia_handlers.DrawableHandler;
+import utopia_worlds.Area;
 
 /**
  * Tiles are backgrounds that have certain proportions.
@@ -20,18 +19,15 @@ public class Tile extends Background
 	 *
 	 * @param x The x-coordinate of the tile's center
 	 * @param y The y-coordinate of the tile's center
-	 * @param drawer The drawableHandler that will draw the tile
-	 * @param actorhandler The actorhandler that will animate the tile (optional, 
-	 * for animated tiles)
 	 * @param texture The sprite which is used for drawing the tile
 	 * @param width The width of the tile
 	 * @param height The height of the tile
+	 * @param area The area where the object will reside
 	 */
-	public Tile(int x, int y, DrawableHandler drawer,
-			ActorHandler actorhandler, Sprite texture, 
-			int width, int height)
+	public Tile(int x, int y, Sprite texture, 
+			int width, int height, Area area)
 	{
-		super(x, y, drawer, actorhandler, texture);
+		super(x, y, texture, area);
 		// Sets the size of the tile
 		setDimensions(width, height);
 		// Tiles are drawn a bit above the backgrounds

@@ -2,6 +2,7 @@ package utopia_gameobjects;
 
 
 import utopia_handleds.Handled;
+import utopia_worlds.Area;
 
 /**
  * GameObject represents any game entity. All of the gameobjects can be created, 
@@ -9,7 +10,7 @@ import utopia_handleds.Handled;
  * that can become an 'object' of an action should inherit this class.
  *
  * @author Mikko Hilpinen.
- *         Created 11.7.2013.
+ * @since 11.7.2013.
  */
 public abstract class GameObject implements Handled
 {
@@ -22,11 +23,16 @@ public abstract class GameObject implements Handled
 	
 	/**
 	 * Creates a new gameobject that is alive until it is killed
+	 * @param area The area where the GameObject will reside
 	 */
-	public GameObject()
+	public GameObject(Area area)
 	{
 		// Initializes attributes
 		this.dead = false;
+		
+		// Adds the object to the handler(s)
+		if (area != null)
+			area.addObject(this);
 	}
 	
 	
