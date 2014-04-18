@@ -2,15 +2,11 @@ package utopia_interfaceElements;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import utopia_gameobjects.DrawnObject;
 import utopia_graphic.Sprite;
 import utopia_helpAndEnums.DepthConstants;
-import utopia_listeners.RoomListener;
 import utopia_worlds.Area;
-import utopia_worlds.Room;
 
 /**
  * Creates an OptionBar for one of the game's options.
@@ -18,17 +14,11 @@ import utopia_worlds.Room;
  * @author Unto Solala & Mikko Hilpinen
  * @since 8.9.2013
  */
-public class IntegerOptionBar extends DrawnObject implements RoomListener
+public class IntegerOptionBar extends AbstractOptionInterface
 {
 	// ATTRIBUTES-------------------------------------------------------
 	
-	private int value;
-	private int minValue;
-	private int maxValue;
-	private String description;
 	private OptionBarButton leftbutton, rightbutton;
-	private Font font;
-	private Color textColor;
 
 	
 	//CONSTRUCTOR-------------------------------------------------------
@@ -52,16 +42,10 @@ public class IntegerOptionBar extends DrawnObject implements RoomListener
 			int minValue, int maxValue, String description, Font textFont, 
 			Color textColor, Sprite buttonSprite, Sprite buttonMask, Area area)
 	{
-		super(x, y, DepthConstants.NORMAL, area);
+		super(x, y, defaultValue, minValue, maxValue, description, textFont, 
+				textColor, area);
 
 		// Initializes attributes
-		this.value = defaultValue;
-		this.minValue = minValue;
-		this.maxValue = maxValue;
-		this.description = description;
-		this.textColor = textColor;
-		this.font = textFont;
-		
 		this.leftbutton = new OptionBarButton((int)this.getX(),
 				(int)this.getY(), OptionBarButton.LEFT, buttonSprite, 
 				buttonMask, area);
@@ -71,75 +55,20 @@ public class IntegerOptionBar extends DrawnObject implements RoomListener
 	}
 	
 	
-	//GETTERS & SETTERS ------------------------------------------------
-	
-	/**
-	 * @return The value the user has chosen
-	 */
-	public int getValue()
-	{
-		return this.value;
-	}
-	
-	
-	//IMPLEMENTED METHODS ----------------------------------------------
-	
-	@Override
-	public int getOriginX()
-	{
-		return 0;
-	}
-
-	@Override
-	public int getOriginY()
-	{
-		return 0;
-	}
-
-	@Override
-	public void drawSelfBasic(Graphics2D g2d)
-	{
-		g2d.setFont(this.font);
-		g2d.setColor(this.textColor);
-		g2d.drawString(getValuePrint(this.value), 30, 15);
-		g2d.drawString(this.description, 150, 15);
-	}
-
-	@Override
-	public void onRoomStart(Room room)
-	{
-		// Does nothing
-	}
-
-	@Override
-	public void onRoomEnd(Room room)
-	{
-		// Death approaches
-		kill();
-	}
+	// IMPLEMENTED METHODS	---------------------------------------------
 	
 	@Override
 	public void kill()
 	{
-		super.kill();
+		// Also kills the buttons
 		this.leftbutton.kill();
 		this.rightbutton.kill();
+		
+		super.kill();
 	}
 	
 	
 	// OTHER METHODS	--------------------------------------------------
-	
-	/**
-	 * This method defines how the value is drawn. Some subclasses may wish 
-	 * to override this method.
-	 * 
-	 * @param value The value that should be drawn in some manner
-	 * @return How the value will be drawn
-	 */
-	protected String getValuePrint(int value)
-	{
-		return "" + value;
-	}
 
 	/**
 	 * OptionBarButtons are buttons used to change the OptionBar's
@@ -214,9 +143,8 @@ public class IntegerOptionBar extends DrawnObject implements RoomListener
 			
 			// If the value is already at maximum / minimum, doesn't even 
 			// show the button
-			if ((this.direction == RIGHT && IntegerOptionBar.this.value == 
-					IntegerOptionBar.this.maxValue) || (this.direction == LEFT && 
-					IntegerOptionBar.this.value == IntegerOptionBar.this.minValue))
+			if ((this.direction == RIGHT && isAtMax()) || 
+					(this.direction == LEFT && isAtMin()))
 				return false;
 			
 			return true;
@@ -232,17 +160,9 @@ public class IntegerOptionBar extends DrawnObject implements RoomListener
 					eventType == MouseButtonEventType.PRESSED)
 			{
 				if(this.direction == LEFT)
-				{
-					//The arrow points to the left
-					if(IntegerOptionBar.this.value>IntegerOptionBar.this.minValue)
-						IntegerOptionBar.this.value = IntegerOptionBar.this.value -1;
-				}
+					adjustValue(-1);
 				else
-				{
-					//The arrow points to the right
-					if(IntegerOptionBar.this.value<IntegerOptionBar.this.maxValue)
-						IntegerOptionBar.this.value = IntegerOptionBar.this.value +1;
-				}
+					adjustValue(1);
 			}
 		}
 	}
