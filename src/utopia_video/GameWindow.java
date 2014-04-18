@@ -16,15 +16,12 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import utopia_handleds.Actor;
 import utopia_handlers.ActorHandler;
 import utopia_handlers.KeyListenerHandler;
 import utopia_handlers.MainKeyListenerHandler;
 import utopia_handlers.MainMouseListenerHandler;
 import utopia_handlers.MouseListenerHandler;
 import utopia_handlers.StepHandler;
-import utopia_listeners.AdvancedKeyListener;
-import utopia_listeners.AdvancedMouseListener;
 
 
 /**
@@ -206,6 +203,9 @@ public class GameWindow extends JFrame
 	 */
 	public void callMousePositionUpdate()
 	{
+		// Throws exceptions from time to time so nullcheck is needed
+		if (MouseInfo.getPointerInfo() == null)
+			return;
 		Point mousePosition = MouseInfo.getPointerInfo().getLocation();
 		// (scaling affects the mouse coordinates)
 		int mousex = (int) ((mousePosition.x - this.leftpaddingwidth - 
@@ -230,33 +230,29 @@ public class GameWindow extends JFrame
 	}
 	
 	/**
-	 * Adds a keylistener to the informed listeners
-	 *
-	 * @param k The keylistener that will be informed
+	 * @return The keyListenerHandler that will inform objects about key events 
+	 * in this window
 	 */
-	public void addKeyListener(AdvancedKeyListener k)
+	public KeyListenerHandler getKeyListenerHandler()
 	{
-		this.keylistenerhandler.addKeyListener(k);
+		return this.keylistenerhandler;
 	}
 	
 	/**
-	 * Adds a new mouselistener to the informed listeners
-	 *
-	 * @param m The mouselistener that will be informed
+	 * @return The mouseListenerHandler that will inform objects about mouse 
+	 * events in this window
 	 */
-	public void addMouseListener(AdvancedMouseListener m)
+	public MouseListenerHandler getMouseListenerHandler()
 	{
-		this.mouselistenerhandler.addMouseListener(m);
+		return this.mouselistenerhandler;
 	}
 	
 	/**
-	 * Adds a new actor to the informed actors
-	 *
-	 * @param a The actor that will be informed about steps
+	 * @return The stepHandler that will inform the objects about step events
 	 */
-	public void addActor(Actor a)
+	public StepHandler getStepHandler()
 	{
-		this.stephandler.addActor(a);
+		return this.stephandler;
 	}
 	
 	/**

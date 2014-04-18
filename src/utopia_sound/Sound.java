@@ -10,7 +10,7 @@ import utopia_resourcebanks.BankObject;
  * sets a standard for the subclasses.
  *
  * @author Mikko Hilpinen.
- *         Created 19.8.2013.
+ * @since 19.8.2013.
  */
 public abstract class Sound implements BankObject
 {
@@ -85,6 +85,8 @@ public abstract class Sound implements BankObject
 		this.listenerhandler.killWithoutKillingHandleds();
 		
 		this.dead = true;
+		
+		//System.out.println("Sound was killed");
 	}
 	
 	@Override
@@ -106,6 +108,8 @@ public abstract class Sound implements BankObject
 	 */
 	public void play(SoundListener specificlistener)
 	{	
+		//System.out.println("Trying to play a sound");
+		
 		// Only plays sounds if alive
 		if (this.dead)
 			return;
@@ -123,6 +127,8 @@ public abstract class Sound implements BankObject
 		this.playing = true;
 		// Plays the sound
 		playSound();
+		
+		//System.out.println("plays a sound");
 	}
 	
 	/**
@@ -133,6 +139,8 @@ public abstract class Sound implements BankObject
 	 */
 	public void loop(SoundListener specificlistener)
 	{
+		//System.out.println("Trying to loop a sound");
+		
 		// Only plays sounds if alive
 		if (this.dead)
 			return;
@@ -150,6 +158,8 @@ public abstract class Sound implements BankObject
 		this.playing = true;
 		// Plays the sound
 		loopSound();
+		
+		//System.out.println("Loops a sound");
 	}
 	
 	/**
