@@ -18,7 +18,7 @@ import utopia_worlds.Room;
  * @author Unto Solala & Mikko Hilpinen
  * @since 8.9.2013
  */
-public class OptionBar extends DrawnObject implements RoomListener
+public class IntegerOptionBar extends DrawnObject implements RoomListener
 {
 	// ATTRIBUTES-------------------------------------------------------
 	
@@ -48,7 +48,7 @@ public class OptionBar extends DrawnObject implements RoomListener
 	 * @param buttonMask The mask used for the buttons' collision checking
 	 * @param area The area where the object is placed to
 	 */
-	public OptionBar(int x, int y, int defaultValue,
+	public IntegerOptionBar(int x, int y, int defaultValue,
 			int minValue, int maxValue, String description, Font textFont, 
 			Color textColor, Sprite buttonSprite, Sprite buttonMask, Area area)
 	{
@@ -101,7 +101,7 @@ public class OptionBar extends DrawnObject implements RoomListener
 	{
 		g2d.setFont(this.font);
 		g2d.setColor(this.textColor);
-		g2d.drawString(""+this.value, 30, 15);
+		g2d.drawString(getValuePrint(this.value), 30, 15);
 		g2d.drawString(this.description, 150, 15);
 	}
 
@@ -124,6 +124,21 @@ public class OptionBar extends DrawnObject implements RoomListener
 		super.kill();
 		this.leftbutton.kill();
 		this.rightbutton.kill();
+	}
+	
+	
+	// OTHER METHODS	--------------------------------------------------
+	
+	/**
+	 * This method defines how the value is drawn. Some subclasses may wish 
+	 * to override this method.
+	 * 
+	 * @param value The value that should be drawn in some manner
+	 * @return How the value will be drawn
+	 */
+	protected String getValuePrint(int value)
+	{
+		return "" + value;
 	}
 
 	/**
@@ -199,9 +214,9 @@ public class OptionBar extends DrawnObject implements RoomListener
 			
 			// If the value is already at maximum / minimum, doesn't even 
 			// show the button
-			if ((this.direction == RIGHT && OptionBar.this.value == 
-					OptionBar.this.maxValue) || (this.direction == LEFT && 
-					OptionBar.this.value == OptionBar.this.minValue))
+			if ((this.direction == RIGHT && IntegerOptionBar.this.value == 
+					IntegerOptionBar.this.maxValue) || (this.direction == LEFT && 
+					IntegerOptionBar.this.value == IntegerOptionBar.this.minValue))
 				return false;
 			
 			return true;
@@ -219,14 +234,14 @@ public class OptionBar extends DrawnObject implements RoomListener
 				if(this.direction == LEFT)
 				{
 					//The arrow points to the left
-					if(OptionBar.this.value>OptionBar.this.minValue)
-						OptionBar.this.value = OptionBar.this.value -1;
+					if(IntegerOptionBar.this.value>IntegerOptionBar.this.minValue)
+						IntegerOptionBar.this.value = IntegerOptionBar.this.value -1;
 				}
 				else
 				{
 					//The arrow points to the right
-					if(OptionBar.this.value<OptionBar.this.maxValue)
-						OptionBar.this.value = OptionBar.this.value +1;
+					if(IntegerOptionBar.this.value<IntegerOptionBar.this.maxValue)
+						IntegerOptionBar.this.value = IntegerOptionBar.this.value +1;
 				}
 			}
 		}
