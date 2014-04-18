@@ -43,7 +43,7 @@ public class SliderIntegerOptionBar extends AbstractOptionBar
 	 * @param sliderBackSprite The sprite used to draw the background for the 
 	 * slider
 	 * @param sliderHandleSprite The sprite used to draw the handle for the 
-	 * slider
+	 * slider (should have 3 images)
 	 * @param area The area where the object is placed to
 	 */
 	public SliderIntegerOptionBar(int x, int y, int defaultValue, int minValue,
