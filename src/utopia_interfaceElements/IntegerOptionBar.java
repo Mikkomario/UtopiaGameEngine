@@ -14,7 +14,7 @@ import utopia_worlds.Area;
  * @author Unto Solala & Mikko Hilpinen
  * @since 8.9.2013
  */
-public class IntegerOptionBar extends AbstractOptionInterface
+public class IntegerOptionBar extends AbstractOptionBar
 {
 	// ATTRIBUTES-------------------------------------------------------
 	
@@ -139,6 +139,10 @@ public class IntegerOptionBar extends AbstractOptionInterface
 		public boolean isVisible()
 		{
 			if (!super.isVisible())
+				return false;
+			
+			// If the host bar is invisible, so are the buttons
+			if (!IntegerOptionBar.this.isVisible())
 				return false;
 			
 			// If the value is already at maximum / minimum, doesn't even 

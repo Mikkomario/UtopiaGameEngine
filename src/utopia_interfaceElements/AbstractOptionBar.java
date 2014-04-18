@@ -11,14 +11,14 @@ import utopia_worlds.Area;
 import utopia_worlds.Room;
 
 /**
- * AbstractOptionInterface is an interface element that lets the player choose 
+ * AbstractOptionBar is an interface element that lets the player choose 
  * an integer value. The actual methods of interaction will be provided by the 
  * subclasses
  * 
  * @author Mikko Hilpinen.
  * @since 18.4.2014
  */
-public abstract class AbstractOptionInterface extends DrawnObject implements
+public abstract class AbstractOptionBar extends DrawnObject implements
 		RoomListener
 {
 	// ATTRIBUTES	-----------------------------------------------------
@@ -46,7 +46,7 @@ public abstract class AbstractOptionInterface extends DrawnObject implements
 	 * @param textColor What color the text will have
 	 * @param area The area where the object is placed to
 	 */
-	public AbstractOptionInterface(int x, int y, int defaultValue,
+	public AbstractOptionBar(int x, int y, int defaultValue,
 			int minValue, int maxValue, String description, Font textFont, 
 			Color textColor, Area area)
 	{
