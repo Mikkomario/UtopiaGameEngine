@@ -148,6 +148,9 @@ public class SliderIntegerOptionBar extends AbstractOptionBar
 			this.minValue = minValue;
 			this.maxValue = maxValue;
 			this.grabbed = false;
+			
+			// Adds the object to the handler(s)
+			area.getMouseHandler().addMouseListener(this);
 		}
 		
 		
@@ -242,7 +245,8 @@ public class SliderIntegerOptionBar extends AbstractOptionBar
 					setX(this.maxX);
 				
 				// Updates the value
-				int value = this.minValue + (int) (((getX() - this.minX) / this.sliderWidth) * 
+				int value = this.minValue + (int) Math.round(
+						((getX() - this.minX) / this.sliderWidth) * 
 						(this.maxValue - this.minValue));
 				SliderIntegerOptionBar.this.setValue(value);
 			}
