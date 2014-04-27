@@ -137,7 +137,7 @@ public class SliderIntegerOptionBar extends AbstractOptionBar
 		public SliderHandle(int minX, int y, int depth, int sliderWidth, 
 				int minValue, int maxValue, int defaultValue, Sprite handleSprite, Area area)
 		{
-			super(minX + (int) (((double) (defaultValue - minValue) / maxValue) * sliderWidth), 
+			super(minX + (int) (((double) (defaultValue - minValue) / (maxValue - minValue)) * sliderWidth), 
 					y, depth, false, CollisionType.BOX, area);
 			
 			// Initializes attributes

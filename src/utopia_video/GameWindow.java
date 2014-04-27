@@ -206,16 +206,9 @@ public class GameWindow extends JFrame
 		// Throws exceptions from time to time so nullcheck is needed
 		if (MouseInfo.getPointerInfo() == null)
 			return;
-		Point mousePosition = MouseInfo.getPointerInfo().getLocation();
-		// (scaling affects the mouse coordinates)
-		int mousex = (int) ((mousePosition.x - this.leftpaddingwidth - 
-				getInsets().left) / this.xscale) - getX();
-		int mousey = (int) ((mousePosition.y - this.toppaddingheight - 
-				getInsets().top) / this.yscale) - getY();
 		
-		//System.out.println("GW Mouse x : " + mousex + ", mousey: " + mousey);
-		
-		this.mainmousehandler.setMousePosition(new Point2D.Double(mousex, mousey));
+		this.mainmousehandler.setMousePosition(
+				getRefinedMousePosition(MouseInfo.getPointerInfo().getLocation()));
 	}
 	
 	/**
@@ -385,6 +378,17 @@ public class GameWindow extends JFrame
 		this.toppaddingheight = 0;
 	}
 	
+	// Adds padding & borders to mouse position calculation
+	private Point2D.Double getRefinedMousePosition(Point originalMousePosition)
+	{
+		int mousex = (int) ((originalMousePosition.x - this.leftpaddingwidth - 
+				getInsets().left) / this.xscale) - getX();
+		int mousey = (int) ((originalMousePosition.y - this.toppaddingheight - 
+				getInsets().top) / this.yscale) - getY();
+		
+		return new Point2D.Double(mousex, mousey);
+	}
+	
 	
 	// SUBCLASSES	----------------------------------------------------
 	
@@ -417,26 +421,16 @@ public class GameWindow extends JFrame
 		public void mousePressed(MouseEvent e)
 		{
 			// Informs the mouse status (scaling affects the mouse coordinates)
-			int mousex = (int) ((e.getX() - GameWindow.this.leftpaddingwidth) / 
-					GameWindow.this.xscale);
-			int mousey = (int) ((e.getY() - GameWindow.this.toppaddingheight) / 
-					GameWindow.this.yscale);
-			
 			GameWindow.this.mainmousehandler.setMouseStatus(
-					new Point2D.Double(mousex, mousey), true, e.getButton());
+					getRefinedMousePosition(e.getPoint()), true, e.getButton());
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e)
 		{
 			// Informs the mouse status (scaling affects the mouse coordinates)
-			int mousex = (int) ((e.getX() - GameWindow.this.leftpaddingwidth) / 
-					GameWindow.this.xscale);
-			int mousey = (int) ((e.getY() - GameWindow.this.toppaddingheight) / 
-					GameWindow.this.yscale);
-			
 			GameWindow.this.mainmousehandler.setMouseStatus(
-					new Point2D.Double(mousex, mousey), false, e.getButton());
+					getRefinedMousePosition(e.getPoint()), false, e.getButton());
 		}
 	}
 	

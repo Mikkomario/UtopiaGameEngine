@@ -92,6 +92,7 @@ public abstract class AbstractOptionBar extends DrawnObject implements
 	@Override
 	public void drawSelfBasic(Graphics2D g2d)
 	{
+		// TODO: Make the text margin adjustable
 		g2d.setFont(this.font);
 		g2d.setColor(this.textColor);
 		g2d.drawString(getValuePrint(this.value), 30, 15);
