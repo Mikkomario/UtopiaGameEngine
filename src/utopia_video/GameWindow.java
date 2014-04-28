@@ -207,8 +207,10 @@ public class GameWindow extends JFrame
 		if (MouseInfo.getPointerInfo() == null)
 			return;
 		
+		Point mousePointOnScreen = MouseInfo.getPointerInfo().getLocation();
+		
 		this.mainmousehandler.setMousePosition(
-				getRefinedMousePosition(MouseInfo.getPointerInfo().getLocation()));
+				getMousePositionOnGamePanels(mousePointOnScreen));
 	}
 	
 	/**
@@ -378,15 +380,21 @@ public class GameWindow extends JFrame
 		this.toppaddingheight = 0;
 	}
 	
-	// Adds padding & borders to mouse position calculation
-	private Point2D.Double getRefinedMousePosition(Point originalMousePosition)
+	// Adds padding, screen position, scaling & borders to mouse position calculation
+	private Point2D.Double getMousePositionOnGamePanels(Point mousePositionOnScreen)
 	{
-		int mousex = (int) ((originalMousePosition.x - this.leftpaddingwidth - 
+		int mousex = (int) ((mousePositionOnScreen.x - this.leftpaddingwidth - 
 				getInsets().left) / this.xscale) - getX();
-		int mousey = (int) ((originalMousePosition.y - this.toppaddingheight - 
+		int mousey = (int) ((mousePositionOnScreen.y - this.toppaddingheight - 
 				getInsets().top) / this.yscale) - getY();
 		
 		return new Point2D.Double(mousex, mousey);
+	}
+	
+	// Takes (only) screen scaling into account in coordinate calculations
+	private Point2D.Double getScaledPoint(Point p)
+	{
+		return new Point2D.Double(p.getX() / this.xscale, p.getY() / this.yscale);
 	}
 	
 	
@@ -420,17 +428,21 @@ public class GameWindow extends JFrame
 		@Override
 		public void mousePressed(MouseEvent e)
 		{
+			Point mousePoint = e.getPoint();
+			
 			// Informs the mouse status (scaling affects the mouse coordinates)
 			GameWindow.this.mainmousehandler.setMouseStatus(
-					getRefinedMousePosition(e.getPoint()), true, e.getButton());
+					getScaledPoint(mousePoint), true, e.getButton());
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e)
 		{
+			Point mousePoint = e.getPoint();
+			
 			// Informs the mouse status (scaling affects the mouse coordinates)
 			GameWindow.this.mainmousehandler.setMouseStatus(
-					getRefinedMousePosition(e.getPoint()), false, e.getButton());
+					getScaledPoint(mousePoint), false, e.getButton());
 		}
 	}
 	
