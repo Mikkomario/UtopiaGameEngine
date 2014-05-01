@@ -3,9 +3,9 @@ package utopia_gameobjects;
 import java.awt.geom.Point2D;
 
 import utopia_handleds.PhysicalCollidable;
-import utopia_helpAndEnums.CollisionType;
-import utopia_helpAndEnums.HelpMath;
-import utopia_helpAndEnums.Movement;
+import utopia_utility.CollisionType;
+import utopia_utility.HelpMath;
+import utopia_utility.Movement;
 import utopia_worlds.Area;
 
 /**

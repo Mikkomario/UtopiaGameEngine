@@ -3,7 +3,7 @@ package utopia_graphic;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import utopia_helpAndEnums.HelpMath;
+import utopia_utility.HelpMath;
 
 /**
  * Maskcheckker is uselful for objects that want to use masks in collision 

@@ -6,9 +6,9 @@ import java.awt.geom.Point2D;
 import utopia_gameobjects.DimensionalDrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_graphic.Sprite;
-import utopia_helpAndEnums.CollisionType;
 import utopia_listeners.AdvancedMouseListener;
 import utopia_listeners.RoomListener;
+import utopia_utility.CollisionType;
 import utopia_worlds.Area;
 import utopia_worlds.Room;
 

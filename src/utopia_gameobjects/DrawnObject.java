@@ -10,12 +10,12 @@ import java.awt.geom.Point2D;
 
 import utopia_handleds.Drawable;
 import utopia_handlers.TransformationListenerHandler;
-import utopia_helpAndEnums.DepthConstants;
-import utopia_helpAndEnums.HelpMath;
-import utopia_helpAndEnums.Movement;
 import utopia_listeners.TransformationListener.TransformationAxis;
 import utopia_listeners.TransformationListener.TransformationEvent;
 import utopia_listeners.TransformationListener.TransformationType;
+import utopia_utility.DepthConstants;
+import utopia_utility.HelpMath;
+import utopia_utility.Movement;
 import utopia_worlds.Area;
 
 

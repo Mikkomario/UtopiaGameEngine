@@ -11,9 +11,9 @@ import utopia_gameobjects.DimensionalDrawnObject;
 import utopia_gameobjects.DrawnObject;
 import utopia_handleds.Collidable;
 import utopia_handleds.Drawable;
-import utopia_helpAndEnums.CollisionType;
-import utopia_helpAndEnums.DepthConstants;
-import utopia_helpAndEnums.HelpMath;
+import utopia_utility.CollisionType;
+import utopia_utility.DepthConstants;
+import utopia_utility.HelpMath;
 import utopia_worlds.Area;
 
 /**

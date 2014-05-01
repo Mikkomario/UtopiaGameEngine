@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.geom.Point2D;
 
 import utopia_graphic.Sprite;
-import utopia_helpAndEnums.DepthConstants;
+import utopia_utility.DepthConstants;
 import utopia_worlds.Area;
 
 /**

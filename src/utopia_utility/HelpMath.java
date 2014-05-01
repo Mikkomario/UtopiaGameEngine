@@ -1,4 +1,4 @@
-package utopia_helpAndEnums;
+package utopia_utility;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;

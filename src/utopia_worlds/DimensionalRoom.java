@@ -9,9 +9,9 @@ import utopia_handlers.ActorHandler;
 import utopia_handlers.DrawableHandler;
 import utopia_handlers.KeyListenerHandler;
 import utopia_handlers.MouseListenerHandler;
-import utopia_helpAndEnums.HelpMath;
 import utopia_resourceHandling.GamePhase;
 import utopia_resourcebanks.SpriteBank;
+import utopia_utility.HelpMath;
 
 /**
  * Dimensional room is a room that has a position and size

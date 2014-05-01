@@ -1,4 +1,4 @@
-package utopia_helpAndEnums;
+package utopia_utility;
 
 /**
  * Movement Represents movement the object can have. Movement itself resembles a 

@@ -8,9 +8,9 @@ import utopia_handlers.CollisionHandler;
 import utopia_handlers.DrawableHandler;
 import utopia_handlers.KeyListenerHandler;
 import utopia_handlers.MouseListenerHandler;
-import utopia_helpAndEnums.DepthConstants;
 import utopia_resourceHandling.GamePhase;
 import utopia_resourceHandling.ResourceActivator;
+import utopia_utility.DepthConstants;
 import utopia_worlds.Room;
 
 /**

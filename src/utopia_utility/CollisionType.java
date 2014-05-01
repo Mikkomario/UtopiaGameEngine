@@ -1,4 +1,4 @@
-package utopia_helpAndEnums;
+package utopia_utility;
 
 /**
  * This enumeration describes the object's shape, which affects how it collides 

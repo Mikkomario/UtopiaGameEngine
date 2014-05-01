@@ -1,4 +1,4 @@
-package utopia_helpAndEnums;
+package utopia_utility;
 
 /**
  * This static class offers constants used in defining object's depth

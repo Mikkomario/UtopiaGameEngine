@@ -22,7 +22,7 @@ import utopia_listeners.TransformationListener;
  * @author Mikko Hilpinen
  * @since 12.3.2014
  */
-public class TextDrawer implements TransformationListener
+public class ParagraphDrawer implements TransformationListener
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
@@ -51,7 +51,7 @@ public class TextDrawer implements TransformationListener
 	 * @param user The user to which this textDrawer is tied to. If null, the 
 	 * drawer won't update its status and won't die unless specifically called
 	 */
-	public TextDrawer(String text, Font font, Color textColor, int textAreaWidth, 
+	public ParagraphDrawer(String text, Font font, Color textColor, int textAreaWidth, 
 			DrawnObject user)
 	{
 		// Initializes attributes

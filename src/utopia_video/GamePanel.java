@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import utopia_handlers.DrawableHandler;
-import utopia_helpAndEnums.DepthConstants;
+import utopia_utility.DepthConstants;
 
 /**
  * Gamepanel is a single panel in the gamescreen that draws numerous drawables. 

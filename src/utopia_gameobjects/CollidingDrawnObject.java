@@ -3,10 +3,10 @@ package utopia_gameobjects;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import utopia_helpAndEnums.CollisionType;
-import utopia_helpAndEnums.HelpMath;
 import utopia_listeners.CollisionListener;
 import utopia_listeners.TransformationListener;
+import utopia_utility.CollisionType;
+import utopia_utility.HelpMath;
 import utopia_worlds.Area;
 
 /**

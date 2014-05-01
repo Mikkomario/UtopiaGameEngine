@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import utopia_gameobjects.DrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_graphic.Sprite;
-import utopia_graphic.TextDrawer;
+import utopia_graphic.ParagraphDrawer;
 import utopia_worlds.Area;
 
 // TODO: Consider adding a width / height system that allows rescaling 
@@ -30,7 +30,7 @@ public class MessageBox extends DrawnObject
 	protected static final int MARGIN = 15;
 	
 	private SingleSpriteDrawer spritedrawer;
-	private TextDrawer textDrawer;
+	private ParagraphDrawer textDrawer;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -57,7 +57,7 @@ public class MessageBox extends DrawnObject
 		// Initializes the attributes
 		this.spritedrawer = new SingleSpriteDrawer(backgroundsprite, 
 				area.getActorHandler(), this);
-		this.textDrawer = new TextDrawer(message + "", textfont, textcolor, 
+		this.textDrawer = new ParagraphDrawer(message + "", textfont, textcolor, 
 				this.spritedrawer.getSprite().getWidth() - MARGIN, this);
 	}
 	

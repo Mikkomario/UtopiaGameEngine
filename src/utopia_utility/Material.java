@@ -1,4 +1,4 @@
-package utopia_helpAndEnums;
+package utopia_utility;
 
 /**
  * Material tells which material the object is made from. Each material has 

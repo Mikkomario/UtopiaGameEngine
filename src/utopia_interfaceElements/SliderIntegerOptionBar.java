@@ -9,8 +9,8 @@ import utopia_gameobjects.DimensionalDrawnObject;
 import utopia_gameobjects.DrawnObject;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_graphic.Sprite;
-import utopia_helpAndEnums.CollisionType;
 import utopia_listeners.AdvancedMouseListener;
+import utopia_utility.CollisionType;
 import utopia_worlds.Area;
 
 /**

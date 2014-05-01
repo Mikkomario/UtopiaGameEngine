@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import utopia_gameobjects.DimensionalDrawnObject;
 import utopia_handlers.ActorHandler;
 import utopia_handlers.DrawableHandler;
-import utopia_helpAndEnums.CollisionType;
-import utopia_helpAndEnums.DepthConstants;
 import utopia_resourcebanks.SpriteBank;
+import utopia_utility.CollisionType;
+import utopia_utility.DepthConstants;
 import utopia_worlds.Area;
 
 /**

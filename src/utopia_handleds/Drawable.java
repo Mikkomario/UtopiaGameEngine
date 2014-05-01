@@ -2,7 +2,7 @@ package utopia_handleds;
 
 import java.awt.Graphics2D;
 
-import utopia_helpAndEnums.DepthConstants;
+import utopia_utility.DepthConstants;
 
 /**
  * All objects which implement this class can be drawn. Each also has a depth 

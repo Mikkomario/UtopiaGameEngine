@@ -3,7 +3,7 @@ package utopia_camera;
 import utopia_gameobjects.DrawnObject;
 import utopia_handleds.Handled;
 import utopia_handlers.DrawnObjectHandler;
-import utopia_helpAndEnums.DepthConstants;
+import utopia_utility.DepthConstants;
 
 /**
  * This class follows the camera and draws objects. It only draws objects that 

@@ -1,8 +1,8 @@
 package utopia_gameobjects;
 
 import utopia_handleds.Actor;
-import utopia_helpAndEnums.CollisionType;
-import utopia_helpAndEnums.Movement;
+import utopia_utility.CollisionType;
+import utopia_utility.Movement;
 import utopia_worlds.Area;
 
 /**

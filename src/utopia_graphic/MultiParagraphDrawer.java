@@ -13,11 +13,11 @@ import utopia_gameobjects.DrawnObject;
  * 
  * @author Mikko Hilpinen
  */
-public class MultiParagraphTextDrawer
+public class MultiParagraphDrawer
 {
 	// ATTRIBUTES	------------------------------------------------------
 	
-	private ArrayList<TextDrawer> texts;
+	private ArrayList<ParagraphDrawer> texts;
 	private DrawnObject user;
 	private Font font;
 	private Color textColor;
@@ -39,11 +39,11 @@ public class MultiParagraphTextDrawer
 	 * 
 	 * @see #addParagraph(String)
 	 */
-	public MultiParagraphTextDrawer(Font font, Color textColor, int textAreaWidth, 
+	public MultiParagraphDrawer(Font font, Color textColor, int textAreaWidth, 
 			int paragraphGap, DrawnObject user)
 	{
 		// Initializes attributes
-		this.texts = new ArrayList<TextDrawer>();
+		this.texts = new ArrayList<ParagraphDrawer>();
 		this.user = user;
 		this.font = font;
 		this.textColor = textColor;
@@ -61,7 +61,7 @@ public class MultiParagraphTextDrawer
 	 */
 	public void addParagraph(String paragraph)
 	{
-		this.texts.add(new TextDrawer(paragraph, this.font, this.textColor, 
+		this.texts.add(new ParagraphDrawer(paragraph, this.font, this.textColor, 
 				this.width, this.user));
 	}
 	
@@ -110,7 +110,7 @@ public class MultiParagraphTextDrawer
 	 */
 	public void clear()
 	{
-		for (TextDrawer text : this.texts)
+		for (ParagraphDrawer text : this.texts)
 		{
 			text.kill();
 		}
