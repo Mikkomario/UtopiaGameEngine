@@ -10,8 +10,6 @@ import utopia_graphic.Sprite;
 import utopia_graphic.ParagraphDrawer;
 import utopia_worlds.Area;
 
-// TODO: Consider adding a width / height system that allows rescaling 
-// of the background sprite without scaling the text size
 
 /**
  * Messageboxes are used to present information to the user in text format. 
@@ -23,14 +21,10 @@ import utopia_worlds.Area;
 public class MessageBox extends DrawnObject
 {
 	// ATTRIBUTES	-----------------------------------------------------
-	
-	/**
-	 * Margin is the empty amount of pixels left to the each side of the box
-	 */
-	protected static final int MARGIN = 15;
-	
+
 	private SingleSpriteDrawer spritedrawer;
 	private ParagraphDrawer textDrawer;
+	private int margin;
 	
 	
 	// CONSTRUCTOR	-----------------------------------------------------
@@ -42,6 +36,8 @@ public class MessageBox extends DrawnObject
 	 * @param x The x-coordinate of the box's center
 	 * @param y The y-coordinate of the box's center
 	 * @param depth The drawing depth of the box
+	 * @param margin How many empty pixels are left between the edges of the 
+	 * box and the text
 	 * @param message The message shown in the box
 	 * @param textfont The font used in drawing the message
 	 * @param textcolor What color is used when drawing the text
@@ -49,16 +45,17 @@ public class MessageBox extends DrawnObject
 	 * messageBox
 	 * @param area The area where the object will reside
 	 */
-	public MessageBox(int x, int y, int depth, String message, 
+	public MessageBox(int x, int y, int depth, int margin, String message, 
 			Font textfont, Color textcolor, Sprite backgroundsprite, Area area)
 	{
 		super(x, y, depth, area);
 
 		// Initializes the attributes
+		this.margin = margin;
 		this.spritedrawer = new SingleSpriteDrawer(backgroundsprite, 
 				area.getActorHandler(), this);
 		this.textDrawer = new ParagraphDrawer(message + "", textfont, textcolor, 
-				this.spritedrawer.getSprite().getWidth() - MARGIN, this);
+				this.spritedrawer.getSprite().getWidth() - margin, this);
 	}
 	
 	
@@ -93,6 +90,15 @@ public class MessageBox extends DrawnObject
 		
 		// And the text
 		if (this.textDrawer != null)
-			this.textDrawer.drawText(g2d, MARGIN, MARGIN);
+			this.textDrawer.drawText(g2d, this.margin, this.margin);
 	}
+	
+	
+	// GETTERS & SETTERS	---------------------------------------------
+	/*
+	protected int getMargin()
+	{
+		return this.margin;
+	}
+	*/
 }

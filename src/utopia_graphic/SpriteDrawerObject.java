@@ -1,11 +1,9 @@
-package utopia_gameobjects;
+package utopia_graphic;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import utopia_gameobjects.DrawnObject;
-import utopia_graphic.SingleSpriteDrawer;
-import utopia_graphic.Sprite;
 import utopia_worlds.Area;
 
 /**

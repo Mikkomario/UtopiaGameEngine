@@ -155,7 +155,7 @@ public class ParagraphDrawer implements TransformationListener
 		// From: http://docs.oracle.com/javase/7/docs/api/java/awt/font/LineBreakMeasurer.html
 		Point pen = new Point(horizontalTranslation, verticalTranslation);
 		
-		if (this.measurerNeedsUpdating)
+		if (this.measurerNeedsUpdating || this.measurer == null)
 			updateLineBreakMeasurer(g2d);
 		
 		float wrappingWidth = this.areaWidth;

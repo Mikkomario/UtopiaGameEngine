@@ -52,6 +52,8 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 	 * @param y The y-coordinate of the box's center
 	 * @param depth The drawing depth of the box
 	 * @param message The message shown on the box
+	 * @param margin How many empty pixels are left between the edges of the 
+	 * box and the text
 	 * @param textfont The font with which the message is drawn
 	 * @param textcolor The color with which the text is drawn
 	 * @param backgroundsprite The sprite used to draw the messageBox
@@ -68,13 +70,14 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 	 * was pressed (optional)
 	 * @param area The area where the object will reside
 	 */
-	public OptionMessageBox(int x, int y, int depth, String message,
+	public OptionMessageBox(int x, int y, int depth, int margin, String message,
 			Font textfont, Color textcolor, Sprite backgroundsprite, 
 			String[] options, Sprite buttonsprite, boolean diesafteruse, 
 			boolean deactivateOtherComponents, 
 			OptionMessageBoxListener user, Area area)
 	{
-		super(x, y, depth, message, textfont, textcolor, backgroundsprite, area);
+		super(x, y, depth, margin, message, textfont, textcolor, 
+				backgroundsprite, area);
 		
 		// Checks if the message should deactivate other objects
 		if (deactivateOtherComponents)
@@ -90,7 +93,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		this.deactivatesOthers = true;
 		this.area = area;
 		
-		int buttony = backgroundsprite.getHeight() - MARGIN - 
+		int buttony = backgroundsprite.getHeight() - margin - 
 				buttonsprite.getHeight() + buttonsprite.getOriginY();
 		int minbuttonx = /*MARGIN +*/ buttonsprite.getOriginX();
 		int maxbuttonx = backgroundsprite.getWidth() - //MARGIN - 
@@ -99,7 +102,8 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		// Creates the options
 		for (int i = 0; i < options.length; i++)
 		{
-			int buttonx = (int) (minbuttonx + ((i + 1.0) / (options.length + 1.0)) * (maxbuttonx - minbuttonx));
+			int buttonx = (int) (minbuttonx + ((i + 1.0) / 
+					(options.length + 1.0)) * (maxbuttonx - minbuttonx));
 			
 			new OptionButton(buttonx, buttony, buttonsprite, options[i], i, 
 					textfont, textcolor, this, this.area);
@@ -210,6 +214,8 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 			g2d.setFont(this.textfont);
 			g2d.setColor(this.textcolor);
 			g2d.drawString(this.text, 0, 0);
+			
+			// TODO: Change the text position
 		}
 
 		@Override
