@@ -5,9 +5,9 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import utopia_gameobjects.DrawnObject;
+import utopia_graphic.MultiParagraphDrawer;
 import utopia_graphic.SingleSpriteDrawer;
 import utopia_graphic.Sprite;
-import utopia_graphic.ParagraphDrawer;
 import utopia_worlds.Area;
 
 
@@ -23,7 +23,7 @@ public class MessageBox extends DrawnObject
 	// ATTRIBUTES	-----------------------------------------------------
 
 	private SingleSpriteDrawer spritedrawer;
-	private ParagraphDrawer textDrawer;
+	private MultiParagraphDrawer textDrawer;
 	private int margin;
 	
 	
@@ -38,7 +38,7 @@ public class MessageBox extends DrawnObject
 	 * @param depth The drawing depth of the box
 	 * @param margin How many empty pixels are left between the edges of the 
 	 * box and the text
-	 * @param message The message shown in the box
+	 * @param message The message shown in the box. # marks a paragraph change.
 	 * @param textfont The font used in drawing the message
 	 * @param textcolor What color is used when drawing the text
 	 * @param backgroundsprite The sprite used to draw the background of the 
@@ -54,8 +54,10 @@ public class MessageBox extends DrawnObject
 		this.margin = margin;
 		this.spritedrawer = new SingleSpriteDrawer(backgroundsprite, 
 				area.getActorHandler(), this);
-		this.textDrawer = new ParagraphDrawer(message + "", textfont, textcolor, 
-				this.spritedrawer.getSprite().getWidth() - margin, this);
+		this.textDrawer = new MultiParagraphDrawer(textfont, textcolor, 
+				this.spritedrawer.getSprite().getWidth() - margin, 32, this);
+		
+		this.textDrawer.addText(message, "#");
 	}
 	
 	
@@ -90,7 +92,7 @@ public class MessageBox extends DrawnObject
 		
 		// And the text
 		if (this.textDrawer != null)
-			this.textDrawer.drawText(g2d, this.margin, this.margin);
+			this.textDrawer.drawTexts(g2d, this.margin, this.margin);
 	}
 	
 	

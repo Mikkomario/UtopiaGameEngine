@@ -51,7 +51,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 	 * @param x The x-coordinate of the box's center
 	 * @param y The y-coordinate of the box's center
 	 * @param depth The drawing depth of the box
-	 * @param message The message shown on the box
+	 * @param message The message shown on the box. # Marks a paragraph change
 	 * @param margin How many empty pixels are left between the edges of the 
 	 * box and the text
 	 * @param textfont The font with which the message is drawn
