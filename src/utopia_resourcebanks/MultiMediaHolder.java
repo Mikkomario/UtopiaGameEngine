@@ -2,7 +2,10 @@ package utopia_resourcebanks;
 
 import java.util.HashMap;
 
+import utopia_graphic.Sprite;
 import utopia_resourceHandling.ResourceType;
+import utopia_sound.MidiMusic;
+import utopia_sound.WavSound;
 
 /**
  * Multimediaholder keeps track all kinds of resources 
@@ -34,6 +37,8 @@ public class MultiMediaHolder
 		// Constructor hidden from other classes since only static 
 		// interfaces are allowed
 	}
+	
+	// TODO: Add simpler getters like getSprite(BankName, SpriteName)
 
 	
 	// OTHER METHODS	--------------------------------------------------
@@ -138,6 +143,24 @@ public class MultiMediaHolder
 	}
 	
 	/**
+	 * Returns a sprite from a spriteBank held in the MultiMediaHolder.
+	 * 
+	 * @param spriteBankName The name of the SpriteBank that holds the sprite
+	 * @param spriteName The name of the sprite in the bank
+	 * @return A sprite with the given name from a bank with the given name. 
+	 * Null if either couldn't be found.
+	 */
+	public static Sprite getSprite(String spriteBankName, String spriteName)
+	{
+		SpriteBank bank = getSpriteBank(spriteBankName);
+		
+		if (bank == null)
+			return null;
+		
+		return bank.getSprite(spriteName);
+	}
+	
+	/**
 	 * Returns an wavsoundbank if it has been initialized yet
 	 *
 	 * @param wavbankname The name of the needed wavbank
@@ -155,6 +178,24 @@ public class MultiMediaHolder
 	}
 	
 	/**
+	 * Returns a wavSound from a wavSoundBank held in the MultiMediaHolder.
+	 * 
+	 * @param wavBankName The name of the wavSoundBank that holds the sound
+	 * @param wavName The name of the sound in the bank
+	 * @return A WavSound with the given name from a bank with the given name. 
+	 * Null if either couldn't be found.
+	 */
+	public static WavSound getWavSound(String wavBankName, String wavName)
+	{
+		WavSoundBank bank = getWavBank(wavBankName);
+		
+		if (bank == null)
+			return null;
+		
+		return bank.getSound(wavName);
+	}
+	
+	/**
 	 * Returns an midiMusicBank if it has been initialized
 	 *
 	 * @param midibankname The name of the needed midiBank
@@ -169,6 +210,24 @@ public class MultiMediaHolder
 			return (MidiMusicBank) maybemidibank;
 		else
 			return null;
+	}
+	
+	/**
+	 * Returns a midiMusic from a midiBank held in the MultiMediaHolder.
+	 * 
+	 * @param midiBankName The name of the SpriteBank that holds the sprite
+	 * @param midiName The name of the midiMusic in the bank
+	 * @return A midiMusic with the given name from a bank with the given name. 
+	 * Null if either couldn't be found.
+	 */
+	public static MidiMusic getMidiMusic(String midiBankName, String midiName)
+	{
+		MidiMusicBank bank = getMidiBank(midiBankName);
+		
+		if (bank == null)
+			return null;
+		
+		return bank.getSound(midiName);
 	}
 	
 	/**
