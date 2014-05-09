@@ -90,7 +90,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 		this.active = true;
 		this.autodeath = diesafteruse;
 		this.user = user;
-		this.deactivatesOthers = true;
+		this.deactivatesOthers = deactivateOtherComponents;
 		this.area = area;
 		
 		int buttony = backgroundsprite.getHeight() - margin - 

@@ -164,6 +164,10 @@ public class ParagraphDrawer implements TransformationListener
 		{
 			TextLayout layout = this.measurer.nextLayout(wrappingWidth);
 		
+			// TODO: May randomly throw a nullPointerException
+			if (layout == null)
+				break;
+			
 		    pen.y += (layout.getAscent());
 		    float dx = layout.isLeftToRight() ?
 		    		 0 : (wrappingWidth - layout.getAdvance());
