@@ -14,7 +14,7 @@ import utopia_listeners.CollisionListener;
  * Collidables
  *
  * @author Mikko Hilpinen.
- *         Created 18.6.2013.
+ * @since 18.6.2013.
  */
 public class CollisionHandler extends LogicalHandler implements Actor
 {

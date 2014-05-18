@@ -55,7 +55,7 @@ public class MessageBox extends DrawnObject
 		this.spritedrawer = new SingleSpriteDrawer(backgroundsprite, 
 				area.getActorHandler(), this);
 		this.textDrawer = new MultiParagraphDrawer(textfont, textcolor, 
-				this.spritedrawer.getSprite().getWidth() - margin, 32, this);
+				this.spritedrawer.getSprite().getWidth() - margin * 2, 32, this);
 		
 		this.textDrawer.addText(message, "#");
 	}

@@ -175,9 +175,10 @@ public abstract class CollidingDrawnObject extends DimensionalDrawnObject
 	 * @param radius The maximum radius of the collision circle (relative, 
 	 * from origin) (>= 0)
 	 * @param edgeprecision How many collisionpoints will be added to the outer 
-	 * edge (>= 0). Center is added at precision 2 and layers will be added 
-	 * between the center and the edge from precision 3 onwards.
-	 * @param layers How many collisionpoint layers there will be? (>= 0)
+	 * edge (>= 0). 
+	 * @param layers How many collisionpoint layers there will be? 
+	 * Center is added at precision 2 and layers will be added 
+	 * between the center and the edge from precision 3 onwards. (>= 0)
 	 * @see #setBoxCollisionPrecision(int, int)
 	 */
 	protected void setCircleCollisionPrecision(int radius, int edgeprecision, int layers)

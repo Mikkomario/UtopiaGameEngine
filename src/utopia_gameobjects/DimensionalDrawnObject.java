@@ -51,8 +51,8 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Phys
 		this.radius = -1;
 		
 		// Adds the object to the handler, if possible
-		if (area.getCollisionHandler().getCollidableHandler() != null)
-			area.getCollisionHandler().getCollidableHandler().addCollidable(this);
+		//if (area.getCollisionHandler().getCollidableHandler() != null)
+		area.getCollisionHandler().addCollidable(this);
 	}
 	
 	
@@ -202,7 +202,7 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Phys
 	{
 		// Checks if the radius needs initializing
 		if (this.radius < 0)
-			initializeRadius();
+			initializeDefaultRadius();
 		return this.radius;
 	}
 	
@@ -217,7 +217,7 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Phys
 		if (r >= 0)
 			this.radius = r;
 		else
-			initializeRadius();
+			initializeDefaultRadius();
 	}
 	
 	
@@ -273,7 +273,10 @@ public abstract class DimensionalDrawnObject extends DrawnObject implements Phys
 		}
 	}
 	
-	private void initializeRadius()
+	/**
+	 * Initializes the object's radius to the default value
+	 */
+	protected void initializeDefaultRadius()
 	{
 		this.radius = (getWidth() + getHeight()) / 4;
 	}
