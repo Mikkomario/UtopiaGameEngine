@@ -213,7 +213,7 @@ public class OptionMessageBox extends MessageBox implements LogicalHandled
 			// Also draws some text
 			g2d.setFont(this.textfont);
 			g2d.setColor(this.textcolor);
-			g2d.drawString(this.text, 0, 0);
+			g2d.drawString(this.text, 5, getOriginY() + 5);
 			
 			// TODO: Change the text position
 		}

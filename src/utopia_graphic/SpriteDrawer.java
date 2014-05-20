@@ -201,6 +201,8 @@ public abstract class SpriteDrawer implements Actor
 		
 		// Draws the sprite
 		drawSprite(g2d, xtranslation, ytranslation, getImageIndex());
+		
+		
 	}
 	
 	/**

@@ -47,6 +47,7 @@ public class Sprite implements BankObject
 			throw new IllegalArgumentException();
 		
 		//System.out.println("loads sprite " + filename);
+		// TODO: Add downscaling and upscaling?
 		
 		// Initializes attributes
 		this.origX = originX;
@@ -83,6 +84,13 @@ public class Sprite implements BankObject
 			
 			this.images[i] = strip.getSubimage(sx, 0, sw, strip.getHeight());
 		}
+		
+		// If an origin position was set to -1, sets it to the middle of the 
+		// sprite
+		if (this.origX == -1)
+			this.origX = getWidth() / 2;
+		if (this.origY == -1)
+			this.origY = getHeight() / 2;
 	}
 	
 	

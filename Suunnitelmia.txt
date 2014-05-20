@@ -1,0 +1,37 @@
+Utopia Game Engine
+Uudet ominaisuudet
+
+Monipuolinen törmäystarkistusjärjestelmä
+	* Viivatörmäystarkistus
+		- Line -luokka
+		- lineCollides() collidableen
+		- getCollisionLines() collisionListeneriin
+		- CollisionLines ja niiden käyttäminen dimensionalDrawnObjectiin
+		- onLineCollision(Line, Collidable, double) collisionListeneriin
+	* Ympyrätörmäystarkistus
+		- circleCollides(Point, double, double) collidableen
+		- getOrigin() / getPosition() ja getRadius() -metodit collisionListeneriin
+	* Usean tarkistusmenetelmän käyttäminen
+		- getSupportedCollisionCheckTypes() collidableen
+			* HUOM: Vaihtoehtoisesti tee jokaiselle tarkistustyypille oma Collidablen ali-interface
+				- PointCollidable, LineCollidable, CircleCollidable
+				- Toisaalta se pakottais alaluokat toteuttaa noi metodit, mikä ei välttis olis kiva
+		- getCollisionCheckTypes() collisionListeneriin
+		- Näiden läpikäyminen ja oikean metodin kutsuminen collisionHandlerissa
+		
+Pisteisiin ja jousiin perustuva fysiikkamoottori
+	* Jousikokonaisuusobjekti (implementoi Drawablen, Collidablen ja Actorin, perii GameObjectin)
+	* Fysiikkapisteobjekti, johon aiheutetaan kaikki voimat ja joka toimii aika paljon 
+	advancedPhysicObjectin tavoin (paitsi ettei ole leveyytä / korkeutta eikä kulmaa)
+		- Titanium -mode, joka estää pistettä painautumasta titaanisten objektien sisään
+			* Ei välttämättä tarpeellinen, toteuta vasta jos ongelma ilmenee
+			
+Spriteloadin parempi kustomointi ja spritejen resoluution muuttaminen
+	* Spriteloadiin kuvien määrä, x-origo ja -yorigo -parametrit tulee laittaa vapaaehtoisiksi defaultilla 1, keski, keski
+	* Spriteen ominaisuus, että jos laittaa origoon -1 niin se menee keskelle
+	* Spriteen setWidth ja setHeight ja näiden ottaminen huomioon Spriteä piirrettäessä
+	* Width ja Height -parametrit spriteloadiin (taas vapaaehtoinen)
+	* Scale -metodi spriteen sekä spriteBankkeihin, jotta voidaan resoluution mukaan skaalata kaikkia spritejä
+		- Tosin voi myös laittaa vielä erikseen esim. "can be scaled" -parametrin spriteloadiin esim. 
+		käyttöliittymäelementtejä varten
+		- Huom: Toisin kuin setWidth ja setHeight, skaalaa myös origon sijantia

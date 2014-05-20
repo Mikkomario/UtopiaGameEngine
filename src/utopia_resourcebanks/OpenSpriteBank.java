@@ -29,7 +29,7 @@ public class OpenSpriteBank extends SpriteBank implements OpenBank
 	 * @param creationcommands Creation commands should follow the following 
 	 * style:<br>
 	 * spritename#filename <i>(data/ is automatically included)</i>#image 
-	 * number#originx#originy
+	 * number(optional)#originx(optional, -1 means center)#originy(optional, -1 means center)
 	 */
 	public OpenSpriteBank(ArrayList<String> creationcommands)
 	{
@@ -50,22 +50,25 @@ public class OpenSpriteBank extends SpriteBank implements OpenBank
 			String[] parts = command.split("#");
 			
 			// Checks that there are enough arguments
-			if (parts.length < 5)
+			if (parts.length < 2)
 			{
 				System.err.println("Couldn't load a sprite. Line " + command + 
 						"doensn't have enough arguments");
 				continue;
 			}
 			
-			int imgnumber = 0;
-			int originx = 0;
-			int originy = 0;
+			int imgnumber = 1;
+			int originx = -1;
+			int originy = -1;
 			
 			try
 			{
-				imgnumber = Integer.parseInt(parts[2]);
-				originx = Integer.parseInt(parts[3]);
-				originy = Integer.parseInt(parts[4]);
+				if (parts.length > 2)
+					imgnumber = Integer.parseInt(parts[2]);
+				if (parts.length > 3)
+					originx = Integer.parseInt(parts[3]);
+				if (parts.length > 4)
+					originy = Integer.parseInt(parts[4]);
 			}
 			catch(NumberFormatException nfe)
 			{

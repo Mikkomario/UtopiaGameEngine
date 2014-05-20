@@ -23,8 +23,8 @@ public class OpenSpriteBankHolder extends OpenBankHolder
 	 * The file should be written as follows:<p>
 	 * 
 	 * &bankname<br>
-	 * spritename#filename(data/ automatically included)#number of images#
-	 * xorigin#yorigin<br>
+	 * spritename#filename <i>(data/ is automatically included)</i>#image 
+	 * number(optional)#originx(optional, -1 means center)#originy(optional, -1 means center)
 	 * anotherspritename#...<br>
 	 * ...<br>
 	 * &anotherbankname<br>
