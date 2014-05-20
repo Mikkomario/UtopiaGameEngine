@@ -23,8 +23,8 @@ public class Sprite implements BankObject
 	
 	private BufferedImage[] images;
 	
-	private int origX, origY;
-	private boolean dead;
+	private int origX, origY, forcedWidth, forcedHeight;
+	private boolean dead, dimensionsSpecified;
 	
 	
 	// CONSTRUCTOR	-------------------------------------------------------
@@ -53,6 +53,9 @@ public class Sprite implements BankObject
 		this.origX = originX;
 		this.origY = originY;
 		this.dead = false;
+		this.forcedHeight = 0;
+		this.forcedWidth = 0;
+		this.dimensionsSpecified = false;
 		
 		// Loads the image
 		File img = new File("data/" + filename);
@@ -126,7 +129,7 @@ public class Sprite implements BankObject
 	 */
 	public int getOriginX()
 	{
-		return this.origX;
+		return (int) (this.origX * getXScale());
 	}
 	
 	/**
@@ -134,7 +137,7 @@ public class Sprite implements BankObject
 	 */
 	public int getOriginY()
 	{
-		return this.origY;
+		return (int) (this.origY * getYScale());
 	}
 	
 	/**
@@ -142,7 +145,9 @@ public class Sprite implements BankObject
 	 */
 	public int getWidth()
 	{
-		return getSubImage(0).getWidth();
+		if (this.dimensionsSpecified)
+			return this.forcedWidth;
+		return getImageWidth();
 	}
 	
 	/**
@@ -150,8 +155,30 @@ public class Sprite implements BankObject
 	 */
 	public int getHeight()
 	{
-		//System.out.println(this.strip.height);
-		return getSubImage(0).getHeight();
+		if (this.dimensionsSpecified)
+			return this.forcedHeight;
+		return getImageHeight();
+	}
+	
+	/**
+	 * @return How much the width of the sprite should be scaled upon drawing
+	 */
+	public double getXScale()
+	{
+		if (this.dimensionsSpecified)
+			return ((double) getWidth()) / getImageWidth();
+		else
+			return 1;
+	}
+	
+	/**
+	 * @return How much the height of the sprite should be scaled upon drawing
+	 */
+	public double getYScale()
+	{
+		if (this.dimensionsSpecified)
+			return ((double) getHeight()) / getImageHeight();
+		return 1;
 	}
 	
 	
@@ -171,6 +198,44 @@ public class Sprite implements BankObject
 			imageIndex = Math.abs(imageIndex % this.images.length);
 		
 		return this.images[imageIndex];
+	}
+	
+	/**
+	 * Sets the sprite to have the given size.
+	 * 
+	 * @param width How wide the sprite will be (in pixels)
+	 * @param height How high the sprite will be (in pixels)
+	 * @notice This size is used when the sprite is drawn using a SpriteDrawer, 
+	 * if you draw the sprite using another class, you must use the getXScale() 
+	 * and getYScale() -methods.
+	 */
+	public void forceDimensions(int width, int height)
+	{
+		this.forcedWidth = width;
+		this.forcedHeight = height;
+		this.dimensionsSpecified = true;
+	}
+	
+	/**
+	 * Permanently scales the sprite with the given modifiers
+	 * 
+	 * @param xScale How much the width of the sprite is scaled (1 keeps the width the same)
+	 * @param yScale How much the height of the sprite is scaled (1 keeps the height the same)
+	 */
+	public void scale(double xScale, double yScale)
+	{
+		// If there is not yet any forced scaling, initializes it
+		forceDimensions((int) (getWidth() * xScale), (int) (getHeight() * yScale));
+	}
+	
+	private int getImageWidth()
+	{
+		return getSubImage(0).getWidth();
+	}
+	
+	private int getImageHeight()
+	{
+		return getSubImage(0).getHeight();
 	}
 	
 	// TODO: If you get bored, try to implement filters into the project

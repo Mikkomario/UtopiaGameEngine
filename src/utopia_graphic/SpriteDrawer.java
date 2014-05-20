@@ -220,6 +220,8 @@ public abstract class SpriteDrawer implements Actor
 	public void drawSprite(Graphics2D g2d, int xtranslation, int ytranslation, 
 			int imageindex)
 	{
+		// Scales the sprite according to it's status
+		g2d.scale(getSprite().getXScale(), getSprite().getYScale());
 		// Draws the sprite
 		g2d.drawImage(getSprite().getSubImage(imageindex), xtranslation, 
 				ytranslation, null);

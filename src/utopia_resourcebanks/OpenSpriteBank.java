@@ -30,6 +30,7 @@ public class OpenSpriteBank extends SpriteBank implements OpenBank
 	 * style:<br>
 	 * spritename#filename <i>(data/ is automatically included)</i>#image 
 	 * number(optional)#originx(optional, -1 means center)#originy(optional, -1 means center)
+	 * #forcedWidth(optional)#forcedHeight(optional)
 	 */
 	public OpenSpriteBank(ArrayList<String> creationcommands)
 	{
@@ -60,6 +61,8 @@ public class OpenSpriteBank extends SpriteBank implements OpenBank
 			int imgnumber = 1;
 			int originx = -1;
 			int originy = -1;
+			int width = 0;
+			int height = 0;
 			
 			try
 			{
@@ -69,6 +72,11 @@ public class OpenSpriteBank extends SpriteBank implements OpenBank
 					originx = Integer.parseInt(parts[3]);
 				if (parts.length > 4)
 					originy = Integer.parseInt(parts[4]);
+				if (parts.length > 6)
+				{
+					width = Integer.parseInt(parts[5]);
+					height = Integer.parseInt(parts[6]);
+				}
 			}
 			catch(NumberFormatException nfe)
 			{
@@ -77,7 +85,8 @@ public class OpenSpriteBank extends SpriteBank implements OpenBank
 				continue;
 			}
 			
-			createSprite(parts[1], imgnumber, originx, originy, parts[0]);
+			createSprite(parts[1], imgnumber, originx, originy, parts[0], width, 
+					height);
 		}
 	}
 }

@@ -63,6 +63,21 @@ public abstract class SpriteBank extends AbstractBank
     }
     
     /**
+     * Scales all the spites held in the bank. Note that this scaling is 
+     * permanent and can only be undone with another scale.
+     * 
+     * @param xScale How much the width of the sprites is scaled
+     * @param yScale How much the height of the sprites is scaled
+     */
+    public void scaleSprites(double xScale, double yScale)
+    {
+    	for (String spriteName : getContentNames())
+    	{
+    		getSprite(spriteName).scale(xScale, yScale);
+    	}
+    }
+    
+    /**
      * Loads and creates a sprite and adds it to the bank
      *
      * @param filename The filename of the sprite
@@ -70,12 +85,17 @@ public abstract class SpriteBank extends AbstractBank
      * @param originx What is the position of the sprite's origin on the x-axis (Pxl)
      * @param originy What is the position of the sprite's origin on the y-axis (Pxl)
      * @param name What is the name of the new sprite
+     * @param forcedWidth How wide the sprite will be (optional, 0 if default)
+     * @param forcedHeight How high the sprite will be (optional, 0 if default)
      * @throws FileNotFoundException If the image file could not be loaded
      */
     protected void createSprite(String filename, int imgnumber, int originx, 
-    		int originy, String name)
+    		int originy, String name, int forcedWidth, int forcedHeight)
     {
     	Sprite newsprite = new Sprite(filename, imgnumber, originx, originy);
         addObject(newsprite, name);
+        
+        if (forcedHeight != 0 && forcedWidth != 0)
+        	newsprite.forceDimensions(forcedWidth, forcedHeight);
     }
 }
